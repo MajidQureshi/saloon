@@ -152,8 +152,8 @@
             </nav>
         </header>
 
-        <div class="row">
-            <div class="column" style="background-color:#aaa;">
+        <!-- <div class="row">
+            <div class="column">
                 <h2>Column 1</h2>
                 <p>Some text..</p>
             </div>
@@ -169,167 +169,158 @@
                 <h2>Column 4</h2>
                 <p>Some text..</p>
             </div>
-        </div>
+        </div> -->
 
         <section class="individual__salon__section">
             <div class="salon__details">
                 <h5 class="salon__details-title">Salons</h5>
-                <h4 class="salon__details-subtitle">Mashe Saloon</h4>
+                <h4 class="salon__details-subtitle">{{$salon->name}}</h4>
                 <p class="salon__details-paragraph">
-                    Welcome to our salon! We are proud to offer you top-notch
-                    service that will leave you feeling confident and looking
-                    your best. Our experienced stylists and experts use the
-                    latest techniques and products to give you beautiful results
-                    while keeping your hair healthy. In addition, we offer a
-                    variety of other treatments, including coloring, perms,
-                    relaxers, facial waxing, and much more. You can count on us
-                    for an enjoyable experience that will nourish both your hair
-                    and self-confidence. Thank you for choosing us!
+                {{$salon->desc}}
                 </p>
+                @php $rating = $salon->rate; @endphp
                 <div class="salon__details-reviews">
-                    <span>3</span>
-                    <span>6 reviews</span>
+                    <span>
+                        <div class="star-rating-wrap d-flex align-items-center">
+                                <div class="star-rating text-color-5 font-size-18">
+                                    @foreach(range(1,5) as $i)
+                                            @if($rating >0)
+                                                @if($rating >0.5)
+                                                    
+                                                @endif
+                                            @else 
+                                                
+                                            @endif
+                                            @php $rating--; @endphp
+                                        </span>
+                                    @endforeach
+                                </div>
+                                <p class="font-size-14 pl-2 font-weight-medium">{{$salon->rateCount}}</p>
+                        </div>
+                    </span>
+                    <span>{{$salon->rateCount}} {{__('reviews')}}</span>
                 </div>
-                <span class="salon__details-both">Both</span>
+                <span class="salon__details-both">
+                {{__('Give service at :')}}
+                                @if ($salon->give_service == "Home")
+                                    {{__('layout.Home')}}
+                                @elseif ($salon->give_service == "Salon")
+                                    {{__('layout.Salon')}}
+                                @else
+                                    {{__('layout.Both')}}
+                                @endif
+                </span>
                 <span class="salon__details-gender"
-                    >Unisex : Give service at Both</span
+                    >@if ($salon->gender == "Male")
+                                <i class="la la-mars mr-1 listing-icon text-color-2"></i> {{__('layout.Male')}}
+                            @elseif ($salon->gender == "Female")
+                                <i class="la la-venus mr-1 listing-icon text-color-2"></i> {{__('layout.Female')}}
+                            @else
+                                <i class="la la-venus-mars mr-1 listing-icon text-color-2"></i> {{__('layout.Unisex')}}
+                            @endif</span
                 >
                 <span class="salon__details-location"
-                    >Abu Dhabi, United Arab Emarates</span
+                    >{{$salon->city}}, {{$salon->state}}, {{$salon->country}}</span
                 >
-                <button
-                    onclick="window.location.href = '../html/booking-1.html'"
-                    class="salon__details-button"
-                >
-                    Book Now
-                </button>
+
+                
+
+                <a href="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/booking' }}" class="salon__details-button" onclick="return setLocalServices();">Book Now</a>
             </div>
 
             <div class="salon__services">
                 <h4 class="salon__services__title">Services</h4>
                 <div class="salon__services__container">
+                    
+                    @foreach($salon->categories as $cat)
                     <div class="salon__services__item">
-                        <h5>Salon</h5>
-                        <!-- <img src="" alt="" /> -->
+                    
+                        <h5>{{$cat->name}}</h5>
+                    
                     </div>
-                    <div class="salon__services__box">
-                        <img src="../assests/single-salon/make-up.png" alt="" />
+                    @foreach ($cat->services as $service)
+                    
+                    <div class="salon__services__box ser" id="{{$service->service_id}}">
+                    <img src="{{ $service->imagePath .'/'. $service->image }}" alt="{{$service->name}}">
                         <div class="salon__services__description">
-                            <h6>Make-up</h6>
-                            <span>Unisex : Give service at Both</span>
-                            <small>30 Min</small>
+                            <h6>{{$service->name}}</h6>
+                            @if ($salon->gender == "Both")
+                                                        <p class="pb-2 font-size-14 font-weight-medium">
+                                                            @if ($service->gender == "Male")
+                                                                <i class="la la-mars mr-1 listing-icon text-color-2"></i> {{__('layout.Male')}}
+                                                            @elseif ($service->gender == "Female")
+                                                                <i class="la la-venus mr-1 listing-icon text-color-2"></i> {{__('layout.Female')}}
+                                                            @else
+                                                                <i class="la la-venus-mars mr-1 listing-icon text-color-2"></i> {{__('layout.Unisex')}}
+                                                            @endif
+                                                        </p>
+                                                    @endif
+                            <!-- <span>Unisex : Give service at Both</span> -->
+                            <small>{{$service->time}} {{__('layout.Min')}}</small>
                             <a href="../html/booking-1.html">Book Now</a>
                         </div>
-                        <span class="salon__services__price">300 $</span>
+                        <span class="salon__services__price">{{$service->price}} {{$setting->currency_symbol}}</span>
                     </div>
-                    <div class="salon__services__box">
-                        <img src="../assests/single-salon/make-up.png" alt="" />
-                        <div class="salon__services__description">
-                            <h6>Make-up</h6>
-                            <span>Unisex : Give service at Both</span>
-                            <small>30 Min</small>
-                            <a href="../html/booking-1.html">Book Now</a>
-                        </div>
-                        <span class="salon__services__price">300 $</span>
-                    </div>
-                    <div class="salon__services__box">
-                        <img src="../assests/single-salon/make-up.png" alt="" />
-                        <div class="salon__services__description">
-                            <h6>Make-up</h6>
-                            <span>Unisex : Give service at Both</span>
-                            <small>30 Min</small>
-                            <a href="../html/booking-1.html">Book Now</a>
-                        </div>
-                        <span class="salon__services__price">300 $</span>
-                    </div>
+                    @endforeach
+                    @endforeach
+                    
                 </div>
 
-                <div class="salon__services__container">
-                    <div class="salon__services__item">
-                        <h5>Hair-treatment</h5>
-                        <!-- <img src="" alt="" /> -->
-                    </div>
-                    <div class="salon__services__box">
-                        <img
-                            src="../assests/single-salon/image 8.jpg"
-                            alt="Hair Cut"
-                        />
-                        <div class="salon__services__description">
-                            <h6>Make-up</h6>
-                            <span>Unisex : Give service at Both</span>
-                            <small>30 Min</small>
-                            <a href="../html/booking-1.html">Book Now</a>
-                        </div>
-                        <span class="salon__services__price">200 $</span>
-                    </div>
-                    <div class="salon__services__box">
-                        <img
-                            src="../assests/single-salon/image 8-1.jpg"
-                            alt="Hair Trim"
-                        />
-                        <div class="salon__services__description">
-                            <h6>Hair Trim</h6>
-                            <span>Unisex : Give service at Both</span>
-                            <small>30 Min</small>
-                            <a href="../html/booking-1.html">Book Now</a>
-                        </div>
-                        <span class="salon__services__price">200 $</span>
-                    </div>
-                    <div class="salon__services__box">
-                        <img
-                            src="../assests/single-salon/image 8-2.jpg"
-                            alt=""
-                        />
-                        <div class="salon__services__description">
-                            <h6>Hair Coloring...</h6>
-                            <span>Unisex : Give service at Both</span>
-                            <small>30 Min</small>
-                            <a href="../html/booking-1.html">Book Now</a>
-                        </div>
-                        <span class="salon__services__price"> 200 $</span>
-                    </div>
-                </div>
+               
             </div>
 
-            <div class="salon__time">
+            <div class="salon__time" style="margin-top: -{{$gap * 3.7}}em !important;">
                 <h4 class="salon__time__title">Opening Time</h4>
                 <ul class="salon__time__list">
-                    <li><span>Monday</span> 8:00 AM - 8:00 PM</li>
+                <li class="d-flex justify-content-between">{{__('layout.Monday')}}
+                                <span class="{{implode(" : ",$times[0]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[0])}}</span>
+                            </li>
+                            <li class="d-flex justify-content-between">{{__('layout.Tuesday')}} <span class="{{implode(" : ",$times[1]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[1])}}</span></li>
+                            <li class="d-flex justify-content-between">{{__('layout.Wednesday')}} <span class="{{implode(" : ",$times[2]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[2])}}</span></li>
+                            <li class="d-flex justify-content-between">{{__('layout.Thursday')}} <span class="{{implode(" : ",$times[3]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[3])}}</span></li>
+                            <li class="d-flex justify-content-between">{{__('layout.Friday')}} <span class="{{implode(" : ",$times[4]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[4])}}</span></li>
+                            <li class="d-flex justify-content-between">{{__('layout.Saturday')}} <span class="{{implode(" : ",$times[5]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[5])}}</span></li>
+                            <li class="d-flex justify-content-between">{{__('layout.Sunday')}} <span class="{{implode(" : ",$times[6]) == 'Close' ? 'text-color-2' : ''}}">{{implode(" : ",$times[6])}}</span></li>
+                    <!-- <li><span>Monday</span> 8:00 AM - 8:00 PM</li>
                     <li><span>Tuesday</span> 8:00 AM - 8:00 PM</li>
                     <li><span>Wednesday</span> 8:00 AM - 8:00 PM</li>
                     <li><span>Thursday</span> 8:00 AM - 8:00 PM</li>
                     <li><span>Friday</span> 8:00 AM - 8:00 PM</li>
                     <li><span>Saturday</span> 8:00 AM - 8:00 PM</li>
-                    <li><span>Sunday</span> 8:00 AM - 8:00 PM</li>
+                    <li><span>Sunday</span> 8:00 AM - 8:00 PM</li> -->
                 </ul>
             </div>
 
-            <div class="salon__location">
+            <div class="salon__location" style="margin-top: -{{$gap * 6}}em !important;">
                 <h4 class="salon__location__title">Location & Contact</h4>
                 <div id="map"></div>
-                <span class="salon__location__number">+91-55-44-32-87</span>
+                <span class="salon__location__number">{{$salon->ownerDetails->code}}{{$salon->ownerDetails->phone}}</span>
                 <span class="salon__location__map-pin"
-                    >Abu Dhabi, United Arab Emarates</span
+                    >{{$salon->address}}, {{$salon->city}}-{{$salon->zipcode}}, {{$salon->state}}, {{$salon->country}}</span
                 >
             </div>
 
-            <div class="salon__owner">
+            <div class="salon__owner" style="margin-top: -{{$gap * 8}}em !important;">
                 <h4 class="salon__owner_title">Salon Owner</h4>
                 <div class="salon__owner_title__box">
-                    <small>AH</small>
-                    <h4 class="salon__owner__title">Ahmed Hammem</h4>
+                <img src=" {{url($salon->ownerDetails->imagePath .'/'.$salon->ownerDetails->image)}} " alt="author-img">
+                    <h4 class="salon__owner__title">{{$salon->ownerDetails->name}}</h4>
                 </div>
 
-                <span class="salon__owner__number">+91-55-44-32-87</span>
-                <span class="salon__owner__email">AhmedH@gmail.com</span>
+                <span class="salon__owner__number">{{$salon->ownerDetails->code}}{{$salon->ownerDetails->phone}}</span>
+                <span class="salon__owner__email">{{$salon->ownerDetails->email}}</span>
                 <span class="salon__owner__map-pin"
-                    >Abu Dhabi, United Arab Emarates</span
+                    >{{$salon->address}}, {{$salon->city}}-{{$salon->zipcode}}, {{$salon->state}}, {{$salon->country}}</span
                 >
             </div>
+
+            @if($salon->review->total() > 0)
             <div class="salon__review">
                 <h4 class="salon__review_title">Reviews</h4>
                 <a href="">Download Our App to See Reviews</a>
 
+                
+                @foreach($salon->reviews as $review)
                 <div class="salon__review__box">
                     <div class="salon__review__box__image__container">
                         <img
@@ -369,115 +360,11 @@
                         self-confidence. Thank you for choosing us!
                     </p>
                 </div>
-
-                <div class="salon__review__box">
-                    <div class="salon__review__box__image__container">
-                        <img
-                            src="../assests/single-salon/Ellipse 1-1.png"
-                            alt="profile-photo"
-                        />
-                        <div class="salon__review__box__title">
-                            <h5>Ahmed Hammem</h5>
-                            <small>16/10/2022</small>
-                        </div>
-                    </div>
-                    <div class="salon__review__box__stars">
-                        <span>3</span>
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                    </div>
-                    <p>
-                        Including coloring, perms, relaxers, facial waxing, and
-                        much more. You can count on us for an enjoyable
-                        experience that will nourish both your hair and
-                        self-confidence. Thank you for choosing us!
-                    </p>
-                </div>
-                <div class="salon__review__box">
-                    <div class="salon__review__box__image__container">
-                        <img
-                            src="../assests/single-salon/Ellipse 1-2.png"
-                            alt="profile-photo"
-                        />
-                        <div class="salon__review__box__title">
-                            <h5>Ahmed Hammem</h5>
-                            <small>16/10/2022</small>
-                        </div>
-                    </div>
-                    <div class="salon__review__box__stars">
-                        <span>3</span>
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                    </div>
-                    <p>
-                        Welcome to our salon! We are proud to offer you
-                        top-notch service that will leave you feeling confident
-                        and looking your best. Our experienced stylists and
-                        experts use the latest techniques and products to give
-                        you beautiful results while keeping your hair healthy.
-                        In addition, we offer a variety of other treatments
-                    </p>
-                </div>
-                <div class="salon__review__box">
-                    <div class="salon__review__box__image__container">
-                        <img
-                            src="../assests/single-salon/Ellipse 1-3.png"
-                            alt="profile-photo"
-                        />
-                        <div class="salon__review__box__title">
-                            <h5>Ahmed Hammem</h5>
-                            <small>16/10/2022</small>
-                        </div>
-                    </div>
-                    <div class="salon__review__box__stars">
-                        <span>3</span>
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                        <img
-                            src="../assests/single-salon/green-star.svg"
-                            alt="star"
-                        />
-                    </div>
-                    <p>
-                        Welcome to our salon! We are proud to offer you
-                        top-notch service that will leave you feeling confident
-                        and looking your best. Our experienced stylists and
-                        experts use the latest techniques and products to give
-                        you beautiful results while keeping your hair healthy.
-                        In addition, we offer a variety of other treatments,
-                        including coloring, perms, relaxers, facial waxing, and
-                        much more. You can count on us for an enjoyable
-                        experience that will nourish both your hair and
-                        self-confidence. Thank you for choosing us!
-                    </p>
-                </div>
+                @endforeach
+                
+                
             </div>
+            @endif
         </section>
 
 

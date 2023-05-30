@@ -455,10 +455,11 @@ class WebsiteController extends Controller
         $salons = Salon::where('status', 1)->get();
         $salons = $salons->sortByDesc('completedBooking');
         $salons = $salons->take(8);
-        // dd($salon);
+        // dd($salon->categories[0]->services);
+        $gap = (count($salon->categories[0]->services) < 6 ? 0 : count($salon->categories[0]->services));
         $setting = AdminSetting::first(['currency']);
         // return view('website.pages.singleSalon', compact('salon', 'today', 'times', 'setting'));
-        return view('website.pages.newsinglesalon', compact('salon', 'today', 'times', 'setting', 'salons'));
+        return view('website.pages.newsinglesalon', compact('salon', 'today', 'times', 'setting', 'salons', 'gap'));
     }
 
     public function catSalon($id, $catname)

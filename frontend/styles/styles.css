@@ -3078,7 +3078,7 @@ select {
 }
 
 .salon__time {
-    transform: translateY(-45%);
+    transform: translateY(-90%);
 }
 
 .salon__time__title {

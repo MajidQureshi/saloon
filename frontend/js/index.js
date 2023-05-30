@@ -84,6 +84,7 @@ const itemNumberBtn = document.querySelector(
 if (servicesContainer)
     servicesContainer.forEach((element) => {
         element.addEventListener("click", function (e) {
+            // console.log(e);
             const item = e.target.closest(".salon__services__box");
             if (item) item.classList.toggle("active-service-item");
 

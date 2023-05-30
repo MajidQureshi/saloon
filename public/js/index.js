@@ -84,7 +84,22 @@ const itemNumberBtn = document.querySelector(
 if (servicesContainer)
     servicesContainer.forEach((element) => {
         element.addEventListener("click", function (e) {
+            console.log(e);
+            console.log(e.target.id);
             const item = e.target.closest(".salon__services__box");
+
+            let flag = item.classList.contains("active-service-item");
+            if(flag === false){
+                service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+                service_storage.push({id: e.target.id});
+                localStorage.setItem("service_storage", JSON.stringify(service_storage));
+                // document.querySelector(".active-service-item")
+            }else{
+                service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+                service_storage.pop({id: e.target.id});
+                localStorage.setItem("service_storage", JSON.stringify(service_storage));
+            }
+
             if (item) item.classList.toggle("active-service-item");
 
             const activeItem = document.querySelector(".active-service-item");
@@ -358,3 +373,43 @@ $("#gostepfour").click(function(){
 $("#gostepfive").click(function(){
     window.location.href = "./bookingstepfive";
 });
+
+
+function setLocalServices(){
+    const servicesContainer = document.querySelectorAll(
+        ".salon__services__container"
+    );
+    servicesContainer.forEach((element) => {
+        element.addEventListener("click", function (e) {
+            console.log(e);
+            console.log(e.target.id);
+            const item = e.target.closest(".salon__services__box");
+
+            let flag = item.classList.contains("active-service-item");
+            if(flag === false){
+                service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+                service_storage.push({id: e.target.id});
+                localStorage.setItem("service_storage", JSON.stringify(service_storage));
+                // document.querySelector(".active-service-item")
+            }else{
+                service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+                service_storage.pop({id: e.target.id});
+                localStorage.setItem("service_storage", JSON.stringify(service_storage));
+            }
+
+            if (item) item.classList.toggle("active-service-item");
+
+            const activeItem = document.querySelector(".active-service-item");
+
+            if (activeItem) {
+                bookingBtn.classList.add("active__booking__button");
+            } else {
+                bookingBtn.classList.remove("active__booking__button");
+            }
+        });
+    });
+
+
+
+    alert("hi");
+}
