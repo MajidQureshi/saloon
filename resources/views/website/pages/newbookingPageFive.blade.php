@@ -161,7 +161,53 @@
                                         />
                                     </div>
                                 </div>
-                                <button class="booking__payment__button">
+
+                                <fieldset class="wizard-fieldset">
+                            <div class="block-card mb-4">
+                                <div class="block-card-header">
+                                    <h3 class="widget-title"> {{__('layout.Select Payment Method')}} </h3>
+                                    <div class="stroke-shape"></div>
+                                </div>
+                                <div class="block-card-body">
+                                    <div class="payment-option-wrap">
+                                        <div class="payment-tab is-active">
+                                            <div class="payment-tab-toggle">
+                                                <input checked id="cash" name="payment_type" type="radio" value="LOCAL">
+                                                <label for="cash"> {{__('layout.Cash')}} </label>
+                                            </div>
+                                            <div class="payment-tab-content">
+                                                <p> {{__('layout.Make your payment in cash at place of service held')}}.</p>
+                                            </div>
+                                        </div>
+                                        @php
+                                            $stripe = \App\PaymentSetting::first()->stripe;
+                                        @endphp
+                                        @if ($stripe)
+                                            <div class="payment-tab">
+                                                <div class="payment-tab-toggle">
+                                                    <input id="stripe" name="payment_type" type="radio" value="STRIPE">
+                                                    <label for="stripe"> {{__('layout.Stripe')}} </label>
+                                                </div>
+                                                <div class="payment-tab-content">
+                                                    <p>{{__('layout.In order to complete your transaction, we will transfer you over to Stripes secure servers')}}.</p>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    @if ($stripe)
+                                        <input type="hidden" value="{{$setting->stripe_public_key}}" name="stripePublicKey" id="stripePublicKey">
+                                    @endif
+                                    <input type="hidden" value="0" name="payment">
+                                    <input type="hidden" value="0" name="discount">
+                                    <a href="javascript:;" class="form-wizard-previous-btn theme-btn gradient-btn border-0 shadow-none float-left">{{__('layout.Previous')}}</a>
+                                    <div class="stripe-form display-none"></div>
+                                    <button type="button" id="cod_submit" onclick="booking()" class="form-wizard-submit theme-btn gradient-btn border-0 shadow-none float-right">{{__('layout.Submit')}}</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                                <button class="booking__payment__button" id="payment_amt">
                                     Pay 300$
                                 </button>
                             </div>
@@ -180,9 +226,9 @@
                             <li>Place<span id="place__text">-</span></li>
                             <li>Staff<span id="staff__text">-</span></li>
                         </ul>
-                        <div class="booking__summary__prices">
-                            <span>Make-Up<small>300$</small></span>
-                            <span>Total<small>300$</small></span>
+                        <div class="booking__summary__prices" id="summary">
+                            <!-- <span>Make-Up<small>300$</small></span> -->
+                            <!-- <span>Total<small>300$</small></span> -->
                         </div>
                     </div>
                 </div>
@@ -271,5 +317,27 @@
         <!-- ================================
             START FOOTER AREA
         ================================= -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+$( document ).ready(function() {
+    setTimeout(() => {
+        let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
+        
+        let spanhtml = "";
+        let total_amt = 0;
+        for(var i = 0; i < ser_dyn.length; i++) {
+            let chunk = ser_dyn[i].split('-');
+            total_amt = total_amt+parseInt(chunk[1]);
+            spanhtml += "<span>"+chunk[2].replace("_", " ")+"<small>"+chunk[1]+"</small></span>"
+            // $("#"+ser_dyn[i]).addClass('active-service-item')  
+        }
+        spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
+        $("#summary").html(spanhtml);
+        $("#payment_amt").text("Pay "+total_amt);
+        // $("#"+)
+        // console.log(ser_dyn);
+    }, 2000);
+});
+        </script>
     </body>
 </html>

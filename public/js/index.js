@@ -91,13 +91,20 @@ if (servicesContainer)
             let flag = item.classList.contains("active-service-item");
             if(flag === false){
                 service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
-                service_storage.push({id: e.target.id});
+                service_storage.push(e.target.id);
                 localStorage.setItem("service_storage", JSON.stringify(service_storage));
+                service_price = JSON.parse(localStorage.getItem("service_price") || "[]");
+                service_storage.push(e.target.id);
+                localStorage.setItem("service_price", JSON.stringify(service_price));
                 // document.querySelector(".active-service-item")
             }else{
+
                 service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
-                service_storage.pop({id: e.target.id});
-                localStorage.setItem("service_storage", JSON.stringify(service_storage));
+                let filtered = service_storage.filter(function(value, index, arr){ 
+                    return value != e.target.id;
+                });
+                // service_storage.pop(e.target.id);
+                localStorage.setItem("service_storage", JSON.stringify(filtered));
             }
 
             if (item) item.classList.toggle("active-service-item");
@@ -119,17 +126,55 @@ if (salonServiceBox)
                 ".active-service-item"
             );
             itemNumber.classList.remove("hidden");
-            itemNumber.children[0].innerText = `${
-                activeItems.length + 1
-            } Service Selected`;
+            const item = e.target.closest(".salon__services__box");
+            let flag = item.classList.contains(".active-service-item");
+            console.log(flag);
+
+            // itemNumber.children[0].innerText = activeItems.length+" Service Selected";
+
+            console.log(activeItems.length);
+
+            //////
+            
+            if(flag === false){
+                // itemNumber.children[0].innerText = `${
+                //     activeItems.length + 1
+                // } Service Selected`;
+                // service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+                // service_storage.push(e.target.id);
+                // localStorage.setItem("service_storage", JSON.stringify(service_storage));
+                itemNumber.children[0].innerText = (activeItems.length + 1)+" Service Selected";
+            }else{
+                itemNumber.children[0].innerText = (activeItems.length - 1)+" Service Selected";
+                // service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+                // let filtered = service_storage.filter(function(value, index, arr){ 
+                    // return value != e.target.id;
+                // });
+                // localStorage.setItem("service_storage", JSON.stringify(filtered));
+                
+            }
+
+
+            if (item) item.classList.toggle(".active-service-item");
+
+            ////
 
             const activeItem = document.querySelector(".active-service-item");
+            // let cflag = activeItem.classList.contains(".active-service-item");
+            // if(cflag === true){
+                
+            //     itemNumber.children[0].innerText = "5 Service Selected";
+                
+            // }else{
+            //     itemNumber.children[0].innerText = "1 Service Selected";
+            // }
 
+            console.log(localStorage.getItem("service_storage"));
             if (activeItem) {
-                itemNumberBtn.classList.add("active__booking__button");
+                itemNumberBtn.classList.add(".active__booking__button");
             } else {
-                itemNumberBtn.classList.remove("active__booking__button");
-            }
+                itemNumberBtn.classList.remove(".active__booking__button");
+            }   
         });
     });
 
@@ -197,8 +242,11 @@ const timePlaceData = JSON.parse(sessionStorage.getItem("key"));
 
 if (bookingStaff) {
     dateText.innerText = timePlaceData[0];
+    localStorage.setItem("datetext", timePlaceData[0]);
     timeText.innerText = timePlaceData[1];
+    localStorage.setItem("timetext", timePlaceData[1]);
     placeText.innerText = timePlaceData[2];
+    localStorage.setItem("placetext", timePlaceData[2]);
 }
 
 const staffItem = document.querySelectorAll(".booking__staff__list__item");
@@ -375,41 +423,42 @@ $("#gostepfive").click(function(){
 });
 
 
-function setLocalServices(){
-    const servicesContainer = document.querySelectorAll(
-        ".salon__services__container"
-    );
-    servicesContainer.forEach((element) => {
-        element.addEventListener("click", function (e) {
-            console.log(e);
-            console.log(e.target.id);
-            const item = e.target.closest(".salon__services__box");
+// function setLocalServices(){
+//     const serContainer = document.querySelectorAll(
+//         ".ser"
+//     );
+//     serContainer.forEach((element) => {
+//         console.log(element);
+//         // element.addEventListener("click", function (e) {
+//         //     console.log(e);
+//         //     console.log(e.target.id);
+//         //     const item = e.target.closest(".salon__services__box");
 
-            let flag = item.classList.contains("active-service-item");
-            if(flag === false){
-                service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
-                service_storage.push({id: e.target.id});
-                localStorage.setItem("service_storage", JSON.stringify(service_storage));
-                // document.querySelector(".active-service-item")
-            }else{
-                service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
-                service_storage.pop({id: e.target.id});
-                localStorage.setItem("service_storage", JSON.stringify(service_storage));
-            }
+//         //     let flag = item.classList.contains("active-service-item");
+//         //     if(flag === false){
+//         //         service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+//         //         service_storage.push({id: e.target.id});
+//         //         localStorage.setItem("service_storage", JSON.stringify(service_storage));
+//         //         // document.querySelector(".active-service-item")
+//         //     }else{
+//         //         service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
+//         //         service_storage.pop({id: e.target.id});
+//         //         localStorage.setItem("service_storage", JSON.stringify(service_storage));
+//         //     }
 
-            if (item) item.classList.toggle("active-service-item");
+//         //     if (item) item.classList.toggle("active-service-item");
 
-            const activeItem = document.querySelector(".active-service-item");
+//         //     const activeItem = document.querySelector(".active-service-item");
 
-            if (activeItem) {
-                bookingBtn.classList.add("active__booking__button");
-            } else {
-                bookingBtn.classList.remove("active__booking__button");
-            }
-        });
-    });
+//         //     if (activeItem) {
+//         //         bookingBtn.classList.add("active__booking__button");
+//         //     } else {
+//         //         bookingBtn.classList.remove("active__booking__button");
+//         //     }
+//         // });
+//     });
+//     exit();
 
 
-
-    alert("hi");
-}
+//     alert("hi");
+// }

@@ -155,9 +155,10 @@
                             <li>Place<span id="place__text">-</span></li>
                             <li>Staff<span id="staff__text">-</span></li>
                         </ul>
-                        <div class="booking__summary__prices">
-                            <span>Make-Up<small>300$</small></span>
-                            <span>Total<small>300$</small></span>
+                        <div class="booking__summary__prices" id="summary">
+
+                            <!-- <span>Make-Up<small>300$</small></span> -->
+                            <!-- <span>Total<small>300$</small></span> -->
                         </div>
                     </div>
                 </div>
@@ -246,5 +247,27 @@
         <!-- ================================
             START FOOTER AREA
         ================================= -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+$( document ).ready(function() {
+    setTimeout(() => {
+        let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
+        
+        let spanhtml = "";
+        let total_amt = 0;
+        for(var i = 0; i < ser_dyn.length; i++) {
+            let chunk = ser_dyn[i].split('-');
+            total_amt = total_amt+parseInt(chunk[1]);
+            spanhtml += "<span>"+chunk[2].replace("_", " ")+"<small>"+chunk[1]+"</small></span>"
+            // $("#"+ser_dyn[i]).addClass('active-service-item')  
+        }
+        spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
+        $("#summary").html(spanhtml);
+        // $("#"+)
+        // console.log(ser_dyn);
+    }, 2000);
+});
+        </script>
+
     </body>
 </html>

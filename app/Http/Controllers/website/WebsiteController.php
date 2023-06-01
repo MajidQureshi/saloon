@@ -590,7 +590,7 @@ class WebsiteController extends Controller
             $addresses = Address::where('user_id', Auth::user()->id)->get();
         }
 
-        // dd($salon);
+        // dd($emps);
 
         $coupons = $this->getCoupon();
         return view('website.pages.newbookingPageThree', compact('salon', 'setting', 'today', 'emps', 'addresses', 'coupons'));

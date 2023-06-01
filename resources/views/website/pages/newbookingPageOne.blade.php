@@ -115,7 +115,8 @@
                         <h5>Salon</h5>
                     </div>
                     @foreach ($cat->services as $service)
-                    <div class="salon__services__box">
+                    @php $sname = str_replace(" ","_", $service->name); @endphp
+                    <div class="salon__services__box" id="{{$service->service_id}}-{{$service->price}}-{{$sname}}">
                         <img src="{{ asset('assests/single-salon/make-up.png') }}" alt="" />
                         <div class="salon__services__description">
                             <h6>{{$service->name}}</h6>
@@ -234,5 +235,22 @@
         <!-- ================================
             START FOOTER AREA
         ================================= -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+$( document ).ready(function() {
+    setTimeout(() => {
+        let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
+        
+        // $.each(ser_dyn , function(index, val) { 
+            // console.log(index, val)
+        // });
+        for(var i = 0; i < ser_dyn.length; i++) {
+            $("#"+ser_dyn[i]).addClass('active-service-item')  
+        }
+        // $("#"+)
+        // console.log(ser_dyn);
+    }, 2000);
+});
+        </script>
     </body>
 </html>
