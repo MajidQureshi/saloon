@@ -111,7 +111,8 @@
                     </div>
 
                     <div>
-                        <span style="font-size:14px;">You dont have account, <a class="nav__login__link" href="{{ url('/signup') }}">Create new Account Now</a></span>
+                        <span style="font-size:14px;">You dont have account, <a class="nav__login__link" href="{{ url('/signup') }}">Create new Account Now</a></span><br />
+                        <span style="font-size:14px;"><a class="nav__login__link" href="{{ url('/signupbusiness') }}">Create new Meetendo Business Now</a></span>
                     </div>
                 </form>
             </div>

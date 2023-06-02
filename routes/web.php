@@ -33,6 +33,7 @@ Route::group([
     Route::post('/loginPost', 'website\WebsiteController@login');
     Route::post('/forgotPassword', 'website\WebsiteController@forgotPassword');
     Route::get('/signup', 'website\WebsiteController@signup');
+    Route::get('/signupbusiness', 'website\WebsiteController@signupbusiness');
     Route::post('/register', 'website\WebsiteController@register');
     Route::post('/sendotp', 'website\WebsiteController@sendotp');
     Route::post('/verifyotp', 'website\WebsiteController@checkotp');
