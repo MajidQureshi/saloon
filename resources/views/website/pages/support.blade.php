@@ -77,7 +77,7 @@
                 <input class="join__section-button" type="submit" />
             </form>
             <div class="join__section-overlay"></div>
-        </section> -->
+        </section> --> 
 
 <?php $mapkey = \App\AdminSetting::find(1)->mapkey; ?>
 <script src="https://maps.googleapis.com/maps/api/js?key={{$mapkey}}&libraries=places&callback=initAutocomplete"  defer></script>
