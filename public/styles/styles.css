@@ -856,7 +856,36 @@ body {
     background-image: url(../assests/shared/category.svg);
     background-repeat: no-repeat;
 }
+.appointment__form__label--user {
+    position: absolute;
+    top: 1.8rem;
+    left: 2rem;
 
+    width: 2rem;
+    height: 2rem;
+    background-image: url('/html-assests/shared/user.svg');
+    background-repeat: no-repeat;
+}
+.appointment__form__label--password {
+    position: absolute;
+    top: 1.8rem;
+    left: 2rem;
+
+    width: 2rem;
+    height: 2rem;
+    background-image: url('/html-assests/shared/password.svg');
+    background-repeat: no-repeat;
+}
+.appointment__form__label--phone {
+    position: absolute;
+    top: 1.8rem;
+    left: 2rem;
+
+    width: 2rem;
+    height: 2rem;
+    background-image: url('/html-assests/shared/phone.svg');
+    background-repeat: no-repeat;
+}
 .appointment__form__label--category::after {
     content: "";
     position: absolute;
@@ -4355,4 +4384,14 @@ select {
   
   .spacer:not(:last-child) {
     margin-bottom: 20px;
+  }
+
+  .error_div{
+    font-size: 12px !important;
+    color: red  !important;
+    text-align: center  !important;
+    padding-bottom: 1rem  !important;
+    background-color: antiquewhite  !important;
+    margin-bottom: 15px  !important;
+    padding-top: 1rem  !important;
   }

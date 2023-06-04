@@ -105,7 +105,7 @@
                     
                     <div class="form__buttons">
                         <button class="form__buttons__search">Login</button>
-                        <a href="#">
+                        <a href="{{ url('/forgetpassword') }}">
                             <span style="padding-left:30px; font-size:18px;">Forget Password ?</span>
                         </a>    
                     </div>

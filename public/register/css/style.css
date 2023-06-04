@@ -339,7 +339,50 @@ input[type="radio"]:hover {
     animation: spin 2s linear infinite;
     z-index: 1001;
 }
- 
+
+.first_error_div{
+    font-size: 12px !important;
+    color: red  !important;
+    text-align: center  !important;
+    padding-bottom: 1rem  !important;
+    background-color: antiquewhite  !important;
+    margin-bottom: 15px  !important;
+    padding-top: 1rem  !important;
+}
+
+.second_error_div{
+    font-size: 12px !important;
+    color: red  !important;
+    text-align: center  !important;
+    padding-bottom: 1rem  !important;
+    background-color: antiquewhite  !important;
+    margin-bottom: 15px  !important;
+    padding-top: 1rem  !important;
+}
+
+.third_error_div{
+    font-size: 12px !important;
+    color: red  !important;
+    text-align: center  !important;
+    padding-bottom: 1rem  !important;
+    background-color: antiquewhite  !important;
+    margin-bottom: 15px  !important;
+    padding-top: 1rem  !important;
+}
+
+.hide{
+    display:none !important;
+}
+
+.show{
+    display: block !important;
+}
+
+.red_border{
+    border: 1px solid red !important;
+}
+
+
 @-webkit-keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);

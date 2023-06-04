@@ -86,7 +86,7 @@
         <header class="header--home" style="top: -1rem;position: absolute;z-index: -5;background-image: linear-gradient( to left top, #837dd3 0%, rgba(131, 125, 211, 0) 100% );clip-path: polygon(0% 0%, 100% 20%, 100% 100%, 0% 100%);width: 100%;height: 71rem;">
             <div class="appointment__content" style="margin-top:8rem">
                 
-                <form class="appointment__form" style="background-color: hsl(var(--color-very-light-purple), 20);padding-block: 2.4rem;width: 47rem;border-radius: 3.2rem;padding-left: 25px;padding-right: 25px;" action="">
+                <form class="appointment__form" style="background-color: hsl(var(--color-very-light-purple), 20);padding-block: 2.4rem;width: 47rem;border-radius: 3.2rem;padding-left: 25px;padding-right: 25px;" method="post" action="{{url('/submitindividual')}}">
                     <h2 class="join__section-title" style="text-align: left;font-size: 22px;color: #000;">
                         Registeration
                     </h2>
@@ -94,29 +94,30 @@
                         @if($errors->any())
                             {{ implode('', $errors->all(':message')) }}
                         @endif
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="appointment__form__box">
-                        <label class="appointment__form__label--email" for=""></label>
-                        <input class="appointment__form__input" type="text" name="email" id="email" placeholder="Email">
+                        <label class="appointment__form__label--user" for=""></label>
+                        <input class="appointment__form__input" type="text" name="name" id="name" placeholder="Name" required>
                     </div>
                     <div class="appointment__form__box">
                         <label class="appointment__form__label--email" for=""></label>
-                        <input class="appointment__form__input" type="text" name="email" id="email" placeholder="Email">
+                        <input class="appointment__form__input" type="email" name="email" id="email" placeholder="Email" required>
                     </div>
                     <div class="appointment__form__box">
-                        <label class="appointment__form__label--pin" for=""></label>
-                        <input class="appointment__form__input" type="password" name="password" id="password" placeholder="Password">
+                        <label class="appointment__form__label--password" for=""></label>
+                        <input class="appointment__form__input" type="password" name="password" id="password" placeholder="Password" required>
                     </div>
                     
                     <div class="appointment__form__box">
-                        <label class="appointment__form__label--email" for=""></label>
-                        <input class="appointment__form__input" type="text" name="phonecode" id="phonecode" placeholder="Phone Code e.g +91">
+                        <label class="appointment__form__label--phone" for=""></label>
+                        <input class="appointment__form__input" type="text" name="phonecode" id="phonecode" placeholder="Phone Code e.g +91" required>
                     </div>
                     <div class="appointment__form__box">
-                        <label class="appointment__form__label--email" for=""></label>
-                        <input class="appointment__form__input" type="text" name="phone" id="phone" placeholder="Phone">
+                        <label class="appointment__form__label--phone" for=""></label>
+                        <input class="appointment__form__input" type="text" name="phone" id="phone" placeholder="Phone" required>
                     </div>
                     <div class="form__buttons">
-                        <button class="form__buttons__search">Register</button>
+                        <button class="form__buttons__search" type="submit">Register</button>
                         
                     </div>
 

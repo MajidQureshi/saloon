@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="A multi-step form is a long-form broken down into multiple pieces/steps to make an otherwise long form less intimidating for visitors to complete." name="description">
     <meta content="Sam Norton" name="author">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Registration Form</title>
     <!-- FAVICONS -->
     <link href="favicons/apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57">
@@ -79,13 +80,15 @@
                                     </div> -->
                                 </div>
                                 <hr style="margin-top: -15px;">
-
+                                <div class="first_error_div hide">
+                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                </div>    
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
                                                 <label class="form-label">Full Name</label> 
-                                                <input class="form-control" id="full_name" name="full_name" type="text">
+                                                <input class="form-control" id="full_name" name="full_name" type="text" onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))">
                                             </div>
                                         </div>
                                         
@@ -94,7 +97,7 @@
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
                                                 <label class="form-label">Mobile Number</label> 
-                                                <input class="form-control" id="mobile_number" name="mobile_number" type="text">
+                                                <input class="form-control" id="mobile_number" name="mobile_number" type="tel" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57">
                                             </div>
                                         </div>
                                         
@@ -119,10 +122,8 @@
                                     <div class="col-lg-12" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_2_yes" name="q_2" type="radio" value="Yes"> 
+                                                <input class="form-check-input question__input" id="q_2_yes" name="q_2" type="checkbox" value="agree"> 
                                                 <label class="form-check-label question__label" style="border: none;display:inline-block;" for="q_2_yes">I have read and agree to the </label> <a style="color:#5541D7; cursor: pointer;" id="termsofservices" >Terms of Services</a> 
-                                                
-                                                
                                             </div>
                                         </div>
                                     </div>
@@ -132,6 +133,9 @@
                             <div class="step">
                                 <h4>Tell us about your company</h4>
                                 <p>Thousands Company like yours are manage their project and team in easy way</p>
+                                <div class="second_error_div hide">
+                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                </div> 
                                 <div class="row">
                                     <div class="col-lg-12" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
@@ -172,7 +176,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_33_yes" name="q_33" type="radio" value="1-10"> 
+                                                <input class="form-check-input question__input" id="q_33_yes" name="q_33" type="radio" value="1-10" checked> 
                                                 <label class="form-check-label question__label" for="q_33_yes" style="">1- 10</label>
                                             </div>
                                         </div>
@@ -199,12 +203,15 @@
                             <div class="step">
                                 <h4>Complete your company profile</h4>
                                 <p>Thousands Company like yours are manage their project and team in easy way</p>
+                                <div class="third_error_div hide">
+                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-6" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
                                                 <label class="form-label">Select Your Company Logo</label> 
-                                                <input class="form-control" id="full_name" name="full_name" type="file">
+                                                <input class="form-control" id="company_logo" name="company_logo" type="file">
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +219,7 @@
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
                                                 <label class="form-label">Select Your Trade Licence</label> 
-                                                <input class="form-control" id="full_name" name="full_name" type="file">
+                                                <input class="form-control" id="licence" name="licence" type="file">
                                             </div>
                                         </div>
                                     </div>
@@ -220,7 +227,7 @@
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
                                                 <label class="form-label">Your ID Copy</label> 
-                                                <input class="form-control" id="full_name" name="full_name" type="File">
+                                                <input class="form-control" id="id_copy" name="id_copy" type="File">
                                             </div>
                                         </div>
                                     </div>
@@ -241,6 +248,9 @@
                             </div>
                             <div class="step">
                                 <h4>What's your company interest?</h4>
+                                <div class="fourth_error_div hide">
+                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                </div>
                                 <div class="row"> 
                                     <div class="col-lg-12" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
@@ -255,7 +265,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_44_yes" name="q_44" type="radio" value="Male"> 
+                                                <input class="form-check-input question__input" id="q_44_yes" name="q_44" type="radio" value="Male" checked> 
                                                 <label class="form-check-label question__label" for="q_44_yes" style="">Male</label>
                                             </div>
                                         </div>
@@ -292,7 +302,7 @@
                                     <div class="col-lg-5" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_55_yes" name="q_55" type="radio" value="Work Location"> 
+                                                <input class="form-check-input question__input" id="q_55_yes" name="q_55" type="radio" value="Work Location" checked> 
                                                 <label class="form-check-label question__label" for="q_55_yes" style="">Work Location</label>
                                             </div>
                                         </div>
@@ -345,6 +355,9 @@
                             <div class="step">
                                 <h4>What's your company working days</h4>
                                 <p>We want to know What is your working Days</p>
+                                <div class="fifth_error_div hide">
+                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                </div>
                                 <div class="row"> 
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
@@ -405,7 +418,7 @@
                                     <div class="col-lg-6" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_77_yes" name="q_66" type="checkbox" value="All Week"> 
+                                                <input class="form-check-input question__input" id="q_77_yes" name="q_66" type="checkbox" value="All Week" checked> 
                                                 <label class="form-check-label question__label" for="q_77_yes" style="">All Week</label>
                                             </div>
                                         </div>
@@ -417,7 +430,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_88_yes" name="q_88" type="radio" value="9am - 6pm"> 
+                                                <input class="form-check-input question__input" id="q_88_yes" name="q_88" type="radio" value="9am - 6pm" checked> 
                                                 <label class="form-check-label question__label" for="q_88_yes" style="padding-left:45px">9am - 6pm</label>
                                             </div>
                                         </div>
@@ -529,8 +542,46 @@
 <script>
     $(document).ready(function() {
 
-        $("#next-btn").click(function(){
-            alert("nnnn");
+        // $("#next-btn").click(function(e){
+        //     // alert("nnnn");
+        //     let full_name = $("#full_name").val();
+        //     let mobile_number = $("#mobile_number").val();
+        //     let email = $("#email").val();
+        //     let password = $("#password").val();
+        //     let company_name = $("#company_name").val();
+        //     let company_desc = $("#company_desc").val();
+        //     let how_many_employees = $('input[name="q_33"]:checked').val();
+        //     let company_location = $("#company_location").val();
+        //     let company_interest = $('input[name="q_44"]:checked').val();
+        //     let serve_your_customer = $('input[name="q_55"]:checked').val();
+        //     let extra_charges_home_services = $("#extra_charges_home_services").val();
+        //     let company_overview = $("#company_overview").val();
+        //     let company_working_days = $('input[name="q_66"]:checked').val();
+        //     let opening_closing_times = $('input[name="q_88"]:checked').val();
+
+        //     console.log(full_name);
+        //     console.log(mobile_number);
+        //     console.log(email);
+        //     console.log(password);
+        //     console.log(company_name);
+        //     console.log(company_desc);
+        //     console.log(how_many_employees);
+        //     console.log(company_location);
+        //     console.log(company_interest);
+        //     console.log(serve_your_customer);
+        //     console.log(extra_charges_home_services);
+        //     console.log(company_overview);
+        //     console.log(company_working_days);
+        //     console.log(opening_closing_times);
+
+            
+        // })
+        $("#termsofservices").click(function(){
+            // $("#myModal").modal("show");
+            window.location.href = "./termsofservices";
+        });
+        $(".go_to_owner").click(function(){
+            $("#preloader-wrapper").attr("style", "display:block !important;");
             let full_name = $("#full_name").val();
             let mobile_number = $("#mobile_number").val();
             let email = $("#email").val();
@@ -546,31 +597,32 @@
             let company_working_days = $('input[name="q_66"]:checked').val();
             let opening_closing_times = $('input[name="q_88"]:checked').val();
 
-            console.log(full_name);
-            console.log(mobile_number);
-            console.log(email);
-            console.log(password);
-            console.log(company_name);
-            console.log(company_desc);
-            console.log(how_many_employees);
-            console.log(company_location);
-            console.log(company_interest);
-            console.log(serve_your_customer);
-            console.log(extra_charges_home_services);
-            console.log(company_overview);
-            console.log(company_working_days);
-            console.log(opening_closing_times);
-
-            
-        })
-        $("#termsofservices").click(function(){
-            $("#myModal").modal("show");
-        });
-        $(".go_to_owner").click(function(){
-            $("#preloader-wrapper").attr("style", "display:block !important;");
+            $.ajax({
+                url:'{{URL::to("/submitbusinessregister")}}',
+                type: "post",
+                data: { 
+                    name: full_name, 
+                    phone: mobile_number,
+                    _token: '{{csrf_token()}}',
+                    email: email,
+                    password: password,
+                    company_name: company_name,
+                    company_desc: company_desc,
+                    how_many_employees: how_many_employees,
+                    company_location: company_location,
+                    company_interest: company_interest,
+                    serve_your_customer: serve_your_customer,
+                    extra_charges_home_services: extra_charges_home_services,
+                    company_overview: company_overview,
+                    // company_working_days: company_working_days,
+                    opening_closing_times: opening_closing_times
+                 },
+                success: function (res) {},
+                error: function (error) {},
+            });
             setTimeout(() => {
-                window.location.href = "https://test.smartcita.com/owner/login";
-            }, 2000);
+                window.location.href = "./owner/login";
+            }, 2500);
             // $('#gif').show(); 
             // alert('go');
             // window.location.href = "https://test.smartcita.com/owner/login";

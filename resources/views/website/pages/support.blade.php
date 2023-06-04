@@ -23,31 +23,37 @@
                 
             </div>
             <div class="sales__section__content" style="width: 100%;">
-                <form class="appointment__form" action="" style="border-radius: 3.2rem;background-color: #e8e4fb;padding-block: 2.4rem;">
+                <form class="appointment__form" onsubmit="return test();" style="border-radius: 3.2rem;background-color: #e8e4fb;padding-block: 2.4rem;" action="{{url('/submitsupport')}}" method="post">
+                    <div class="first_success_div hide">
+                        We received your support ticket We'll respond you soon
+                    </div>
                     <div class="appointment__form__box" style="padding: 0px 25px 15px 25px;">
-                        <label class="appointment__form__label--search" style="left:4rem"></label>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />    
+                    <label class="appointment__form__label--search" style="left:4rem"></label>
                         <input
                             class="appointment__form__input"
                             type="text"
-                            placeholder="What is your problem"
+                            name="problem"
+                            placeholder="What is your problem" required
                         />
                     </div>
                     <div class="appointment__form__box" style="padding: 0px 25px 15px 25px;">
                         <label class="appointment__form__label--email" style="left:4rem" ></label>
                         <input
                             class="appointment__form__input"
-                            type="text"
-                            placeholder="Email"
+                            type="email"
+                            name="email"
+                            placeholder="Email" required
                         />
                     </div>
                     <div class="appointment__form__box" style="padding: 0px 25px 15px 25px;">
                         <label class="appointment__form__label--search" style="left:4rem" ></label>
-                        <textarea class="appointment__form__input" type="text" rows="6" placeholder="Your problem please"></textarea>
+                        <textarea class="appointment__form__input" type="text" rows="6" placeholder="Your problem please" name="problem_description" required></textarea>
                             
                         
                     </div>
                     <div class="form__buttons" style="padding: 0px 25px 15px 25px;">
-                        <button class="form__buttons__search">Submit</button>
+                        <button class="form__buttons__search" type="submit" id="submitsupport">Submit</button>
                         
                     </div>
                 </form>
@@ -75,5 +81,15 @@
 
 <?php $mapkey = \App\AdminSetting::find(1)->mapkey; ?>
 <script src="https://maps.googleapis.com/maps/api/js?key={{$mapkey}}&libraries=places&callback=initAutocomplete"  defer></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    function test(){
+        $(".first_success_div").removeClass("hide");
+        $(".first_success_div").addClass("show");
+        return false;
+    }
+    $("#submitsupport").click(function(){
+        // alert("teeeee");
+    })
+</script>
 @endsection

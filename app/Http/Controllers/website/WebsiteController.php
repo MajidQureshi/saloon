@@ -108,11 +108,88 @@ class WebsiteController extends Controller
     }
 
     
+    public function termsofservices()
+    {
+
+        return view('website.pages.termsofservices');
+    }
+
+    public function submitbusinessregister(Request $request)
+    {
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
+        $user->verify = 1;
+        $user->role = 2;
+        $user->company_name = $request->company_name;
+        $user->company_desc = $request->company_desc;
+        $user->how_many_employees = $request->how_many_employees;
+        $user->company_location = $request->company_location;
+        $user->company_interest = $request->company_interest;
+        $user->serve_your_customer = $request->serve_your_customer;
+        $user->extra_charges_home_services = $request->extra_charges_home_services;
+        $user->company_overview = $request->company_overview;
+        $user->save();
+        return true;
+        // return response()->json(['success' => true,'data' => $category, 'msg' => 'category create'], 200);
+                
+    }
+        
+    public function submitindividual(Request $request)
+    {
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->code = $request->phonecode;
+        $user->password = Hash::make($request->password);
+        $user->verify = 1;
+        $user->role = 3;        
+        $user->save();
+        return redirect('/login');
+        // redirect()->url('login');
+        // return response()->json(['success' => true,'data' => $category, 'msg' => 'category create'], 200);
+                
+    }
+    
     public function signupbusiness(Request $request)
     {
 
         return view('website.pages.newbusinessregister');
     }
+    
+    public function forgetpassword(Request $request)
+    {
+
+        return view('website.pages.newforgetpassword');
+    }
+    
+    public function submitsupport(Request $request)
+    {
+        // dd($request);
+        // $detail['UserName'] = "Majid";
+        // $detail['AppName'] = "Meetendo";
+        // Mail::to("majid.dev@gmail.com")->cc("majid.mernprofessional@gmail.com")->send(new Welcome('hi', $detail, 'tariq'));
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->phone = $request->phone;
+        // $user->code = $request->phonecode;
+        // $user->password = Hash::make($request->password);
+        // $user->verify = 1;
+        // $user->role = 3;        
+        // $user->save();
+        // return redirect('/login');
+        // redirect()->url('login');
+        // return response()->json(['success' => true,'data' => $category, 'msg' => 'category create'], 200);
+                
+    }
+    
+
     // public function register(Request $request)
     // {
 
@@ -465,8 +542,8 @@ class WebsiteController extends Controller
         // dd($salon->categories[0]->services);
         $gap = (count($salon->categories[0]->services) < 6 ? 0 : count($salon->categories[0]->services));
         $setting = AdminSetting::first(['currency']);
-        return view('website.pages.singleSalon', compact('salon', 'today', 'times', 'setting'));
-        // return view('website.pages.newsinglesalon', compact('salon', 'today', 'times', 'setting', 'salons', 'gap'));
+        // return view('website.pages.singleSalon', compact('salon', 'today', 'times', 'setting'));
+        return view('website.pages.newsinglesalon', compact('salon', 'today', 'times', 'setting', 'salons', 'gap'));
     }
 
     public function catSalon($id, $catname)

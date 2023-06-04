@@ -615,8 +615,8 @@
         <div class="footer__page col-lg-3 ">
             <span class="footer__list-title">Quick Links</span>
             <ul>
-                <li><a href="#" data-toggle="modal" data-target="#signUpModal">{{__('layout.Sign Up')}}</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#loginModal">{{__('layout.Log In')}}</a></li>
+                <li><a href="{{ url('/signup') }}" data-toggle="modal" data-target="#signUpModal">{{__('layout.Sign Up')}}</a></li>
+                <li><a href="{{ url('/login') }}" data-toggle="modal" data-target="#loginModal">{{__('layout.Log In')}}</a></li>
             </ul>
         </div>
         <div class="footer__page col-lg-3 ">
@@ -651,6 +651,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script>
 $( document ).ready(function() {
+
+
+    localStorage.setItem("service_storage", []);
     setTimeout(() => {
         let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
         

@@ -300,7 +300,7 @@
         </p>
         <div class="sales__section__content-buttons sales__section__content-buttons--tablet">
             <a href="{{ url('/pricing') }}"><button>Subscribe Now</button></a>
-            <a href="">Check our Plans</a>
+            <a href="{{ url('/pricing') }}">Check our Plans</a>
         </div>
     </div>
     <img class="sales__section-img" src="{{asset('html-assests/shared/sales.png')}}" alt=" sales-rising" />

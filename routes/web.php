@@ -32,16 +32,22 @@ Route::group([
     Route::get('/', 'website\WebsiteController@index');
     Route::post('/loginPost', 'website\WebsiteController@login');
     Route::post('/forgotPassword', 'website\WebsiteController@forgotPassword');
+    Route::post('/submitbusinessregister', 'website\WebsiteController@submitbusinessregister');
     Route::get('/signup', 'website\WebsiteController@signup');
     Route::get('/signupbusiness', 'website\WebsiteController@signupbusiness');
     Route::post('/register', 'website\WebsiteController@register');
     Route::post('/sendotp', 'website\WebsiteController@sendotp');
     Route::post('/verifyotp', 'website\WebsiteController@checkotp');
+    Route::post('/submitindividual', 'website\WebsiteController@submitindividual');
+    Route::post('/submitsupport', 'website\WebsiteController@submitsupport');
 
+
+    Route::get('/forgetpassword', 'website\WebsiteController@forgetpassword');
     Route::get('/all-categories', 'website\WebsiteController@allCat');
     Route::get('/all-salons', 'website\WebsiteController@allSalon');
     Route::get('/pricing', 'website\WebsiteController@pricing');
     Route::get('/support', 'website\WebsiteController@support');
+    Route::get('/termsofservices', 'website\WebsiteController@termsofservices');
     Route::post('/all-salons', 'website\WebsiteController@allSalon');
     Route::post('/subscribenow', 'website\WebsiteController@subscribenow');
     Route::get('/salon/{id}/{salon_name}', 'website\WebsiteController@singleSalon');

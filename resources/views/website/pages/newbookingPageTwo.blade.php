@@ -121,7 +121,7 @@
 
                             <input
                                 id="clock"
-                                type="text"
+                                type="time"
                                 placeholder="Select Time Slot"
                             />
                         </div>
@@ -203,8 +203,8 @@
                 <div class="footer__page col-lg-3 ">
                     <span class="footer__list-title">Quick Links</span>
                     <ul>
-                        <li><a href="#" data-toggle="modal" data-target="#signUpModal">{{__('layout.Sign Up')}}</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#loginModal">{{__('layout.Log In')}}</a></li>
+                        <li><a href="{{ url('/signup') }}" data-toggle="modal" data-target="#signUpModal">{{__('layout.Sign Up')}}</a></li>
+                        <li><a href="{{ url('/login') }}" data-toggle="modal" data-target="#loginModal">{{__('layout.Log In')}}</a></li>
                     </ul>
                 </div>
                 <div class="footer__page col-lg-3 ">
@@ -241,6 +241,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script>
 $( document ).ready(function() {
+    let today = new Date();
+    day = today.getDate()+1;
+    month = today.getMonth()+1; //January is 0
+    year = today.getFullYear();
+    let c_date = year+"-"+(month < 10 ? "0"+month : month)+"-"+(day < 10 ? "0"+day : day);
+    console.log(c_date);
+    $("#date").attr("min", c_date);
     setTimeout(() => {
         let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
         
