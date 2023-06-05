@@ -102,14 +102,14 @@ const progress = (value) => {
                 current_step = 0;
                 return false;
             }
-            console.log(user_exist);
+            console.log(user_exist); 
             if(user_exist == 1){
                 $(".user_exist_error_div").removeClass("hide");
                 $(".user_exist_error_div").addClass("show");
                 current_step = 0;
                 return false;
             }
-            
+
             $("#short_heading").text('Dazboard');
             $("#main_heading").text('Manage Your Project and Team in an easy way');
             $("#main_pic").attr("src", "register/img/step"+(current_step+1)+".webp");
