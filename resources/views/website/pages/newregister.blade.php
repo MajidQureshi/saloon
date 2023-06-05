@@ -90,7 +90,11 @@
                     <h2 class="join__section-title" style="text-align: left;font-size: 22px;color: #000;">
                         Registeration
                     </h2>
-                    
+                        @if( Session::has( 'success' ))
+                            {{ Session::get( 'success' ) }}
+                        @elseif( Session::has( 'warning' ))
+                            <div class="row" style="font-size: 12px !important;color: red  !important;text-align: center  !important;padding-bottom: 1rem  !important;background-color: antiquewhite  !important;margin-bottom: 15px  !important;padding-top: 1rem  !important;"><span>{{ Session::get( 'warning' ) }}</span></div> <!-- here to 'withWarning()' -->
+                        @endif
                         @if($errors->any())
                             {{ implode('', $errors->all(':message')) }}
                         @endif

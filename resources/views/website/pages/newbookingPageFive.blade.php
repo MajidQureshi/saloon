@@ -105,6 +105,11 @@
                 <div class="booking__main__content--2">
                     <div class="booking__payment">
                         <h4>Select Payment Method</h4>
+                        
+
+
+
+
                         <div class="pay__later">
                             <img
                                 src="../assests/single-salon/cash.svg"
@@ -118,103 +123,47 @@
                                     src="../assests/single-salon/credit.svg"
                                     alt="cash"
                                 />
-                                <span> Credit Card</span>
+                                <span> Stripe Card</span>
                             </div>
+                            @php
+                                $stripe_key = 'pk_test_51N0q2GGe3Ltd3BwxNB9601Cd1GT09pUYny0aLW4mR6lR2fiRw2q6XMHVv9pCK07TfLewTjVcakHgdOd9LhbFZzaF00Kv6GfVMf';
+                            @endphp
 
-                            <div class="booking__payment__inputs">
-                                <div class="booking__payment__inputs__box">
-                                    <label class="payment__name__label"></label>
-                                    <input
-                                        id="name__input"
-                                        type="text"
-                                        placeholder="Name"
-                                    />
-                                </div>
-
-                                <div class="booking__payment__inputs__box">
-                                    <label class="payment__card__label"></label>
-                                    <input
-                                        id="card__input"
-                                        type="text"
-                                        placeholder="Card Number "
-                                    />
-                                </div>
-                                <div class="booking__payment__month__box">
-                                    <div class="booking__payment__inputs__box">
-                                        <label
-                                            class="payment__month__label"
-                                        ></label>
-                                        <input
-                                            id="month__input"
-                                            type="text"
-                                            placeholder="MM/YY"
-                                        />
+                            <div class="card">
+                            <!-- <form action="{{route('checkout.credit-card')}}"  method="post" id="payment-form"> -->
+                            <form action="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingbooked' }}"  method="post" id="payment-form">
+                                @csrf
+                                <div class="form-group">
+                                    <div class="card-header" style="margin-bottom:4rem">
+                                        <!-- Card info -->
+                                        <label for="card-element">
+                                            Enter your credit card information
+                                        </label>
                                     </div>
-                                    <div class="booking__payment__inputs__box">
-                                        <label
-                                            class="payment__cvc__label"
-                                        ></label>
-                                        <input
-                                            id="CVC__input"
-                                            type="text"
-                                            placeholder="CVC"
-                                        />
-                                    </div>
-                                </div>
-
-                                <fieldset class="wizard-fieldset">
-                            <div class="block-card mb-4">
-                                <div class="block-card-header">
-                                    <h3 class="widget-title"> {{__('layout.Select Payment Method')}} </h3>
-                                    <div class="stroke-shape"></div>
-                                </div>
-                                <div class="block-card-body">
-                                    <div class="payment-option-wrap">
-                                        <div class="payment-tab is-active">
-                                            <div class="payment-tab-toggle">
-                                                <input checked id="cash" name="payment_type" type="radio" value="LOCAL">
-                                                <label for="cash"> {{__('layout.Cash')}} </label>
-                                            </div>
-                                            <div class="payment-tab-content">
-                                                <p> {{__('layout.Make your payment in cash at place of service held')}}.</p>
-                                            </div>
+                                    <div class="card-body">
+                                        <div id="card-element">
+                                        <!-- A Stripe Element will be inserted here. -->
                                         </div>
-                                        @php
-                                            $stripe = \App\PaymentSetting::first()->stripe;
-                                        @endphp
-                                        @if ($stripe)
-                                            <div class="payment-tab">
-                                                <div class="payment-tab-toggle">
-                                                    <input id="stripe" name="payment_type" type="radio" value="STRIPE">
-                                                    <label for="stripe"> {{__('layout.Stripe')}} </label>
-                                                </div>
-                                                <div class="payment-tab-content">
-                                                    <p>{{__('layout.In order to complete your transaction, we will transfer you over to Stripes secure servers')}}.</p>
-                                                </div>
-                                            </div>
-                                        @endif
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" role="alert"></div>
+                                        <input type="hidden" name="plan" value="" />
                                     </div>
                                 </div>
-                                <div class="form-group clearfix">
-                                    @if ($stripe)
-                                        <input type="hidden" value="{{$setting->stripe_public_key}}" name="stripePublicKey" id="stripePublicKey">
-                                    @endif
-                                    <input type="hidden" value="0" name="payment">
-                                    <input type="hidden" value="0" name="discount">
-                                    <a href="javascript:;" class="form-wizard-previous-btn theme-btn gradient-btn border-0 shadow-none float-left">{{__('layout.Previous')}}</a>
-                                    <div class="stripe-form display-none"></div>
-                                    <button type="button" id="cod_submit" onclick="booking()" class="form-wizard-submit theme-btn gradient-btn border-0 shadow-none float-right">{{__('layout.Submit')}}</button>
+                                <div class="card-footer">
+                                <button
+                                id="card-button"
+                                class="btn btn-dark"
+                                type="submit"
+                                data-secret="{{ $intent }}" style="margin-top:4rem;background-color: #2da159;border-radius: 2.4rem;padding-inline: 5rem;padding-block: 1.3rem;border: 0;color: #fff;cursor: pointer;font-weight: 400;"> Pay </button>
                                 </div>
-                            </div>
-                        </fieldset>
-                                <button class="booking__payment__button" id="payment_amt">
-                                    Pay 300$
-                                </button>
-                            </div>
+                            </form>
                         </div>
+                            
+                        </div>
+                        
                         <div class="booking__payment__links">
-                            <button id="payment__button">Continue</button>
-                            <a href="../html/booking-4.html">Back</a>
+                            <button id="payment__button1">Back</button>
+                            
                         </div>
                     </div>
 
@@ -317,8 +266,75 @@
         <!-- ================================
             START FOOTER AREA
         ================================= -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+        <script src="https://js.stripe.com/v3/"></script>
         <script>
+ 
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+
+        var style = {
+            base: {
+                color: '#32325d',
+                lineHeight: '18px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+    
+        const stripe = Stripe('{{ $stripe_key }}', { locale: 'en' }); // Create a Stripe client.
+        const elements = stripe.elements(); // Create an instance of Elements.
+        const cardElement = elements.create('card', { style: style }); // Create an instance of the card Element.
+        const cardButton = document.getElementById('card-button');
+        const clientSecret = cardButton.dataset.secret;
+    
+        cardElement.mount('#card-element'); // Add an instance of the card Element into the `card-element` <div>.
+    
+        // Handle real-time validation errors from the card Element.
+        cardElement.addEventListener('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+    
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+    
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+        stripe.handleCardPayment(clientSecret, cardElement, {
+                payment_method_data: {
+                    //billing_details: { name: cardHolderName.value }
+                }
+            })
+            .then(function(result) {
+                console.log(result);
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    console.log(result);
+                    form.submit();
+                }
+            });
+        });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>    
 $( document ).ready(function() {
     setTimeout(() => {
         let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
@@ -332,10 +348,15 @@ $( document ).ready(function() {
             // $("#"+ser_dyn[i]).addClass('active-service-item')  
         }
         spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
+        console.log(spanhtml);
         $("#summary").html(spanhtml);
-        $("#payment_amt").text("Pay "+total_amt);
+        // $("#payment_amt").text("Pay "+total_amt);
         // $("#"+)
         // console.log(ser_dyn);
+        $("#date__text").text(localStorage.getItem("datetext"));
+        $("#time__text").text(localStorage.getItem("timetext"));
+        $("#place__text").text(localStorage.getItem("placetext"));
+        $("#staff__text").text("selected");
     }, 2000);
 });
         </script>

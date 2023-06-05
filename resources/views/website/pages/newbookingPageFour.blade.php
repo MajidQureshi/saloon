@@ -117,7 +117,17 @@
                     <div class="booking__coupon">
                         <h4>
                             Discount
-                            <a href="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingstepfive' }}" id="gostep5">Skip This Step</a>
+                            <form action="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingstepfive' }}" method="post">
+                                <div class="booking__coupon__links">
+                                {{ csrf_field() }}
+                                    <input type="hidden" id="amount" name="amount" value="">
+                                    <input type="hidden" id="description" name="description" value="">
+                                    <!-- <input type="text" id="currency" name="currency" value=""> -->
+                                    <button class="coupon__button" style="margin-top: -4rem;" type="submit">Skip This Step</button>
+                                </div>
+                                 
+                                <!-- <a href="" id="gostep5">Skip This Step</a> -->
+                            </form>
                         </h4>
                         <div tabindex="0" class="booking__coupon__input__box">
                             <label></label>
@@ -242,17 +252,28 @@ $( document ).ready(function() {
         
         let spanhtml = "";
         let total_amt = 0;
+        let description = "";
         for(var i = 0; i < ser_dyn.length; i++) {
             let chunk = ser_dyn[i].split('-');
             total_amt = total_amt+parseInt(chunk[1]);
+            if(description != ""){
+                description += ", "+chunk[2].replace("_", " ");
+            }else{
+                description += chunk[2].replace("_", " ");
+            }
+            
+            
             spanhtml += "<span>"+chunk[2].replace("_", " ")+"<small>"+chunk[1]+"</small></span>"
             // $("#"+ser_dyn[i]).addClass('active-service-item')  
         }
         spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
         $("#summary").html(spanhtml);
+        $("#amount").val(total_amt);
+        $("#description").val("Services: "+description+" in "+localStorage.getItem("placetext")+" at "+localStorage.getItem("datetext")+" Time: "+localStorage.getItem("timetext"));
+        
         // $("#"+)
         // console.log(ser_dyn);
-    }, 2000);
+    }, 1000);
 });
         </script>
     </body>

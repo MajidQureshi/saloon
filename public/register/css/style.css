@@ -340,6 +340,16 @@ input[type="radio"]:hover {
     z-index: 1001;
 }
 
+.user_exist_error_div{
+    font-size: 12px !important;
+    color: red  !important;
+    text-align: center  !important;
+    padding-bottom: 1rem  !important;
+    background-color: antiquewhite  !important;
+    margin-bottom: 15px  !important;
+    padding-top: 1rem  !important;
+}
+
 .first_error_div{
     font-size: 12px !important;
     color: red  !important;

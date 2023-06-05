@@ -83,6 +83,9 @@
                                 <div class="first_error_div hide">
                                     Please fill all the mandatory fields and checked agree with Terms of Services
                                 </div>    
+                                <div class="user_exist_error_div hide">
+                                    User already exist
+                                </div> 
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-check ps-0 q-box">

@@ -35,6 +35,7 @@ const progress = (value) => {
             let email = $("#email").val();
             let password = $("#password").val();
             let agree = $('input[name="q_2"]:checked').val();
+            let user_exist = 0;
             let firstflag = true;
 
             console.log(agree);
@@ -72,12 +73,43 @@ const progress = (value) => {
                 firstflag = false;
             }
 
+            if(email != ""){
+                $.ajax({
+                    url:'isexistuseremail',
+                    type: "get",
+                    async:false,
+                    data: { 
+                        email: email,
+                    },
+                    success: function (res) {
+                        if(res == '1'){
+                            console.log('exist')
+                            user_exist = 1;
+                            
+                            
+                            $("#email").addClass("red_border");
+                            return user_exist;
+                        }
+                    },
+                    error: function (error) {},
+                });
+            }
+            
+            
             if(firstflag == false){
                 $(".first_error_div").removeClass("hide");
                 $(".first_error_div").addClass("show");
                 current_step = 0;
                 return false;
             }
+            console.log(user_exist);
+            if(user_exist == 1){
+                $(".user_exist_error_div").removeClass("hide");
+                $(".user_exist_error_div").addClass("show");
+                current_step = 0;
+                return false;
+            }
+            
             $("#short_heading").text('Dazboard');
             $("#main_heading").text('Manage Your Project and Team in an easy way');
             $("#main_pic").attr("src", "register/img/step"+(current_step+1)+".webp");

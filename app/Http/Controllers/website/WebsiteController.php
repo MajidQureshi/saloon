@@ -38,6 +38,14 @@ use App\sub_plan_detail;
 class WebsiteController extends Controller
 {
 
+    public function isexistuseremail(Request $request){
+        $existuser = User::where('email', '=', $request->email)->first();
+        if ($existuser === null) {
+            return false;
+        }
+        return true;
+    }
+
     public function login(Request $request)
     {
         // dd($request);
@@ -141,15 +149,31 @@ class WebsiteController extends Controller
     public function submitindividual(Request $request)
     {
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->code = $request->phonecode;
-        $user->password = Hash::make($request->password);
-        $user->verify = 1;
-        $user->role = 3;        
-        $user->save();
+        $existuser = User::where('email', '=', $request->email)->first();
+        if ($existuser === null) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->code = $request->phonecode;
+            $user->password = Hash::make($request->password);
+            $user->verify = 1;
+            $user->role = 3;        
+            $user->save();
+        }else{
+            return Redirect::back()->withWarning( 'User Exist!' );
+            // return redirect('/signup')->with('flash_message', 'User Exist!');
+        }
+
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->phone = $request->phone;
+        // $user->code = $request->phonecode;
+        // $user->password = Hash::make($request->password);
+        // $user->verify = 1;
+        // $user->role = 3;        
+        // $user->save();
         return redirect('/login');
         // redirect()->url('login');
         // return response()->json(['success' => true,'data' => $category, 'msg' => 'category create'], 200);
@@ -723,6 +747,7 @@ class WebsiteController extends Controller
 
     public function bookingPageStepFive(Request $request, $id, $salonname)
     {
+        // dd($request);
         $salon = Salon::find($id);
         $day = strtolower(Carbon::now()->format('l'));
         $start_time = new Carbon($salon->$day['open']);
@@ -758,8 +783,74 @@ class WebsiteController extends Controller
 
         // dd($salon);
 
+        // Stripe
+
+        // Enter Your Stripe Secret
+        \Stripe\Stripe::setApiKey('sk_test_51N0q2GGe3Ltd3BwxsfaTpZb0NEyrPqBq69oYO1IV3Ve26njJyDBX1AmeGFpJdFhe7J5sGlwhv6MCGt5640fFF3Xy00lKXTOfHr');
+                        
+        $amount = $request->amount;
+        $amount *= 100;
+        $amount = (int) $amount;
+
+        $payment_intent = \Stripe\PaymentIntent::create([
+            'description' => $request->description,
+            'amount' => $amount,
+            'currency' => 'USD',
+            // 'description' => 'Payment From Meetendo',
+            'payment_method_types' => ['card'],
+        ]);
+        $intent = $payment_intent->client_secret;
+        // dd($intent);
+        // return view('checkout.credit-card',compact('intent'));
+
+
+        //////////////////
+
         $coupons = $this->getCoupon();
-        return view('website.pages.newbookingPageFive', compact('salon', 'setting', 'today', 'emps', 'addresses', 'coupons'));
+        return view('website.pages.newbookingPageFive', compact('intent', 'salon', 'setting', 'today', 'emps', 'addresses', 'coupons'));
+    }
+
+    public function bookingbooked(Request $request, $id, $salonname)
+    {
+        // dd($request);
+        $salon = Salon::find($id);
+        $day = strtolower(Carbon::now()->format('l'));
+        $start_time = new Carbon($salon->$day['open']);
+        $close_time = new Carbon($salon->$day['close']);
+
+        if ($salon->$day['open'] == null && $salon->$day['close'] == null) {
+            $today = 'Close';
+        } else {
+            $start_time = $start_time->format('g:i A');
+            $close_time = $close_time->format('g:i A');
+            $today = $start_time . '-' . $close_time;
+        }
+        $salon->serviceCount = Service::where([['salon_id', $id], ['status', 1], ['isdelete', 0]])->count();
+        $salon->categories = Category::where('status', 1)->get();
+        foreach ($salon->categories as $key => $cat) {
+            $cat->services = Service::where([['salon_id', $id], ['cat_id', $cat->cat_id], ['status', 1], ['isdelete', 0]])->get();
+            if (count($cat->services) == 0) {
+                unset($salon->categories[$key]);
+            }
+        }
+        $emps = [];
+        $setting = AdminSetting::first(['currency_symbol']);
+        $setting->stripe_public_key = PaymentSetting::first()->stripe_public_key;
+        if ($request->ajax()) {
+            $emps = $this->getEmp($request->all());
+            $view = view('website.pages.empList', compact('emps'))->render();
+            return response()->json(['html' => $view, 'meta' => $emps]);
+        }
+        $addresses = [];
+        if (Auth::check()) {
+            $addresses = Address::where('user_id', Auth::user()->id)->get();
+        }
+
+        // dd($salon);
+
+     
+        $coupons = $this->getCoupon();
+        return view('website.pages.newsuccessfullybooked', compact('salon', 'setting', 'today', 'emps', 'addresses', 'coupons'));
     }
 
     public function timeSlot(Request $request)

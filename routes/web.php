@@ -40,7 +40,11 @@ Route::group([
     Route::post('/verifyotp', 'website\WebsiteController@checkotp');
     Route::post('/submitindividual', 'website\WebsiteController@submitindividual');
     Route::post('/submitsupport', 'website\WebsiteController@submitsupport');
+    Route::get('/isexistuseremail', 'website\WebsiteController@isexistuseremail');
 
+    // Payment Routes
+    Route::get('checkout','CheckoutController@checkout');
+    Route::post('checkout','CheckoutController@afterpayment')->name('checkout.credit-card');
 
     Route::get('/forgetpassword', 'website\WebsiteController@forgetpassword');
     Route::get('/all-categories', 'website\WebsiteController@allCat');
@@ -55,8 +59,11 @@ Route::group([
     Route::get('/salon/{id}/{salon_name}/bookingsteptwo', 'website\WebsiteController@bookingPageStepTwo');
     Route::get('/salon/{id}/{salon_name}/bookingstepthree', 'website\WebsiteController@bookingPageStepThree');
     Route::get('/salon/{id}/{salon_name}/bookingstepfour', 'website\WebsiteController@bookingPageStepFour');
-    Route::get('/salon/{id}/{salon_name}/bookingstepfive', 'website\WebsiteController@bookingPageStepFive');
+    Route::post('/salon/{id}/{salon_name}/bookingstepfive', 'website\WebsiteController@bookingPageStepFive');
     Route::post('/salon/{id}/{salon_name}/booking', 'website\WebsiteController@bookingPage');
+    Route::post('/salon/{id}/{salon_name}/bookingbooked', 'website\WebsiteController@bookingbooked');
+
+    Route::post('/salon/{id}/bookingstepfifth', 'website\WebsiteController@bookingstepfifth');
 
     Route::post('/booking/timeslot', 'website\WebsiteController@timeSlot');
     Route::post('/useCoupon', 'website\WebsiteController@useCoupon');
