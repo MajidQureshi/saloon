@@ -40,7 +40,8 @@ Route::group([
     Route::post('/verifyotp', 'website\WebsiteController@checkotp');
     Route::post('/submitindividual', 'website\WebsiteController@submitindividual');
     Route::post('/submitsupport', 'website\WebsiteController@submitsupport');
-    Route::get('/isexistuseremail', 'website\WebsiteController@isexistuseremail');
+    Route::get('/isexistuseremail', 'website\WebsiteController@isexistuseremail');    
+    Route::post('/aftersubscribepayment', 'website\WebsiteController@aftersubscribepayment');
 
     // Payment Routes
     Route::get('checkout','CheckoutController@checkout');
@@ -50,6 +51,11 @@ Route::group([
     Route::get('/all-categories', 'website\WebsiteController@allCat');
     Route::get('/all-salons', 'website\WebsiteController@allSalon');
     Route::get('/pricing', 'website\WebsiteController@pricing');
+
+    Route::get('/silver', 'website\WebsiteController@silver');
+    Route::get('/gold', 'website\WebsiteController@gold');
+    Route::get('/plat', 'website\WebsiteController@plat');
+
     Route::get('/support', 'website\WebsiteController@support');
     Route::get('/termsofservices', 'website\WebsiteController@termsofservices');
     Route::post('/all-salons', 'website\WebsiteController@allSalon');

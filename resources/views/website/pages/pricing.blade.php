@@ -43,7 +43,7 @@
                     <li>3000 AED Setup fee</li>
                 </ul>
                 <button class="card__button card__button__gold">
-                    <a href="../html/gold.html"> Subscribe Now</a>
+                    <a href="{{url('/gold')}}"> Subscribe Now</a>
                 </button>
             </div>
 
@@ -75,7 +75,7 @@
                     <li>No Setup fees</li>
                 </ul>
                 <button class="card__button">
-                    <a href="../html/silver.html"> Subscribe Now</a>
+                    <a href="{{url('/silver')}}"> Subscribe Now</a>
                 </button>
             </div>
 
@@ -103,7 +103,7 @@
                     <li>3000 AED Setup fees</li>
                 </ul>
                 <button class="card__button">
-                    <a href="../html/plat.html"> Subscribe Now</a>
+                    <a href="{{url('/plat')}}"> Subscribe Now</a>
                 </button>
             </div>
         </section>
@@ -165,18 +165,18 @@
                         <div class="comparison__section-box">
                             <h3>Free Silver</h3>
                             <p>Start with 3 Months Free</p>
-                            <a href="../html/silver.html">Subscribe Now</a>
+                            <a href="{{url('/silver')}}">Subscribe Now</a>
                         </div>
                         <div class="comparison__section-box">
                             <h3>Monthly Partner</h3>
                             <p>Start with 3 Months Free</p>
-                            <a href="../html/gold.html">Subscribe Now</a>
+                            <a href="{{url('/gold')}}">Subscribe Now</a>
                         </div>
 
                         <div class="comparison__section-box">
                             <h3>Yearly Platinum</h3>
                             <p>Start with 3 Months Free</p>
-                            <a href="../html/plat.html">Subscribe Now</a>
+                            <a href="{{url('/plat')}}">Subscribe Now</a>
                         </div>
 
                         <div class="comparison__section-box">

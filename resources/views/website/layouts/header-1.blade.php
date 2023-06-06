@@ -31,7 +31,14 @@
     </div>
     
     @else
-    <a class="nav__login__link" href="{{ url('/login') }}">Log in</a>
+    <!-- <a class="nav__login__link" href="{{ url('/login') }}">Log in</a> -->
+    <div class="dropdown">
+        <a class="nav__login__link">Log in</a>
+            <div class="dropdown-content">
+                <a href="{{ url('/login') }}">Individual Login</a>
+                <a href="{{ url('/owner/login') }}">Business Login</a>
+            </div>
+    </div>
     @endif
         
         <button class="nav__login__button">

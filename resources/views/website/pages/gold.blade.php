@@ -31,21 +31,21 @@
         <title>Meetendo</title>
     </head>
     <body>
-        <header class="single__salon__header">
+        <header class="single__salon__header" style="height: 15rem; background:none;">
         <nav class="nav container">
     <div class="nav__logo">
         <img src="{{asset('html-assests/shared/logo.png')}}" alt="Meetendo logo" class="nav__logo__img" />
-        <h2 class="nav__logo__title">Meetendo</h2>
+        <h2 class="nav__logo__title" style="color:#362574">Meetendo</h2>
     </div>
     <ul class="nav__list">
         <a href="{{ url('/') }}">
-            <li class="nav__list__item">Home</li>
+            <li class="nav__list__item" style="color:#362574">Home</li>
         </a>
         <a href="{{ url('/pricing') }}">
-            <li class="nav__list__item">Pricing</li>
+            <li class="nav__list__item" style="color:#362574">Pricing</li>
         </a>
         <a href="{{ url('/support') }}">
-            <li class="nav__list__item">Support</li>
+            <li class="nav__list__item" style="color:#362574">Support</li>
         </a>
     </ul>
 
@@ -65,7 +65,7 @@
     </div>
     
     @else
-    <!-- <a class="nav__login__link" href="{{ url('/login') }}">Log in</a> -->
+    <!-- <a class="nav__login__link" style="color:#362574" href="{{ url('/login') }}">Log in</a> -->
     <div class="dropdown">
         <a class="nav__login__link">Log in</a>
             <div class="dropdown-content">
@@ -82,69 +82,62 @@
     <img class="nav__menu" src="{{asset('html-assests/shared/menu.svg')}}" alt="" />
 </nav>
 
-            <div class="salon__details__booking">
-                <h5 class="salon__details-title">Salons</h5>
-                <h4 class="salon__details-subtitle">{{$salon->name}}</h4>
-
-                <div class="salon__details-reviews">
-                    <span>{{$salon->rateCount}}</span>
-                    <span>{{__('reviews')}}</span>
-                </div>
-
-                <span class="salon__details-location"
-                    >{{$salon->city}}, {{$salon->state}}, {{$salon->country}}</span
-                >
-            </div>
+            
         </header>
-
-        <main class="booking-2 booking-5">
-            <div class="hidden overlay__booking"></div>
-            <div class=""></div>
-            <nav class="booking__nav">
-                <ul class="booking__nav__list">
-                    <li class="active__item" id="gostepone">Service</li>
-                    <li class="active__item" id="gosteptwo">Time & Place</li>
-                    <li class="active__item" id="gostepthree">Staff</li>
-                    <li class="active__item" id="gostepfour">Coupon</li>
-                    <li class="active__item" id="gostepfive">Payment</li>
-                </ul>
-
-                <div class="booking__main__content--2">
-                    <div class="booking__payment">
-                        <h4>Select Payment Method</h4>
-                        
-
-
-
-
-                        <div class="pay__later">
-                            <img
-                                src="../assests/single-salon/cash.svg"
-                                alt="cash"
-                            />
-                            <span> Pay When You Arrive</span>
-                        </div>
-                        <div class="booking__payment__credit">
-                            <div class="booking__payment__credit__header">
-                                <img
-                                    src="../assests/single-salon/credit.svg"
-                                    alt="cash"
-                                />
-                                <span> Stripe Card</span>
-                            </div>
-                            @php
+        @php
                                 $stripe_key = 'pk_test_51N0q2GGe3Ltd3BwxNB9601Cd1GT09pUYny0aLW4mR6lR2fiRw2q6XMHVv9pCK07TfLewTjVcakHgdOd9LhbFZzaF00Kv6GfVMf';
                             @endphp
 
-                            <div class="card">
-                            <!-- <form action="{{route('checkout.credit-card')}}"  method="post" id="payment-form"> -->
-                            <form action="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingbooked' }}"  method="post" id="payment-form">
-                                @csrf
-                                <div class="form-group">
+
+                            <section class="subscription__checkout">
+                            <div class="subscription__checkout-description">
+                <h2
+                    class="subscription__checkout-title subscription__checkout-title--gold"
+                >
+                    Monthly Gold
+                </h2>
+                <p class="subscription__checkout-text">
+                    Get 3 Months For FREE with this Pack, plus all these
+                    features
+                </p>
+                <ul class="subscription__checkout-list">
+                    <li>Silver Feature</li>
+                    <li>Online Booking</li>
+                    <li>Online booking Payment</li>
+                    <li>Shop booking SMS Notification</li>
+                    <li>Online booking system</li>
+                    <li>Unlimited employee definition</li>
+                    <li>Unlimited Client Definition</li>
+                    <li>Unlimited Services Definition</li>
+                    <li>Shop Reports Access</li>
+                    <li>Mobile appointment booking integration</li>
+                    <li>Client invoices</li>
+                    <li>5% AED online booking transaction</li>
+                    <li>3000 AED Setup fee</li>
+                </ul>
+                <span class="subscription__checkout-old_price"> 799 AED</span>
+                <span class="subscription__checkout-new_price">399 AED</span>
+            </div>
+
+            <div class="subscription__checkout-payment">
+                <h3 class="subscription__checkout-title">Payment</h3>
+                <form class="subscription__checkout-form" action="{{ url('/aftersubscribepayment') }}"  method="post" id="payment-form">
+                @csrf
+                    <div class="subscription__checkout-coupon__box">
+                        <label></label>
+                        <input
+                            class="input__coupon"
+                            type="text"
+                            placeholder="Enter The Coupon"
+                        />
+                        <a href=""> Apply</a>
+                    </div>
+
+                    <div class="form-group">
                                     <div class="card-header" style="margin-bottom:4rem">
                                         <!-- Card info -->
-                                        <label for="card-element">
-                                            Enter your credit card information
+                                        <label for="card-element" style="font-size:14px">
+                                            Enter your stripe card information
                                         </label>
                                     </div>
                                     <div class="card-body">
@@ -161,35 +154,16 @@
                                 id="card-button"
                                 class="btn btn-dark"
                                 type="submit"
-                                data-secret="{{ $intent }}" style="margin-top:4rem;background-color: #2da159;border-radius: 2.4rem;padding-inline: 5rem;padding-block: 1.3rem;border: 0;color: #fff;cursor: pointer;font-weight: 400;"> Pay </button>
+                                data-secret="{{ $intent }}" style="font-size: 16px;margin-top:4rem;background-color: #2da159;border-radius: 2.4rem;padding-inline: 48%;padding-block: 1.3rem;border: 0;color: #fff;cursor: pointer;font-weight: 400;"> Pay </button>
                                 </div>
-                            </form>
-                        </div>
-                            
-                        </div>
-                        
-                        <div class="booking__payment__links">
-                            <button id="payment__button1">Back</button>
-                            
-                        </div>
-                    </div>
+                </form>
+                <button class="subscription__checkout-continue__button">
+                    Continue
+                </button>
+            </div>
+        </section>
 
-                    <div class="booking__summary">
-                        <h4>Booking Summary</h4>
-                        <ul class="booking__summary__list">
-                            <li>Date<span id="date__text">-</span></li>
-                            <li>Time<span id="time__text">-</span></li>
-                            <li>Place<span id="place__text">-</span></li>
-                            <li>Staff<span id="staff__text">-</span></li>
-                        </ul>
-                        <div class="booking__summary__prices" id="summary">
-                            <!-- <span>Make-Up<small>300$</small></span> -->
-                            <!-- <span>Total<small>300$</small></span> -->
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </main>
+
 
 
         <section class="join__section">
@@ -342,30 +316,30 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>    
-$( document ).ready(function() {
-    setTimeout(() => {
-        let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
+// $( document ).ready(function() {
+//     setTimeout(() => {
+//         let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
         
-        let spanhtml = "";
-        let total_amt = 0;
-        for(var i = 0; i < ser_dyn.length; i++) {
-            let chunk = ser_dyn[i].split('-');
-            total_amt = total_amt+parseInt(chunk[1]);
-            spanhtml += "<span>"+chunk[2].replace("_", " ")+"<small>"+chunk[1]+"</small></span>"
-            // $("#"+ser_dyn[i]).addClass('active-service-item')  
-        }
-        spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
-        console.log(spanhtml);
-        $("#summary").html(spanhtml);
-        // $("#payment_amt").text("Pay "+total_amt);
-        // $("#"+)
-        // console.log(ser_dyn);
-        $("#date__text").text(localStorage.getItem("datetext"));
-        $("#time__text").text(localStorage.getItem("timetext"));
-        $("#place__text").text(localStorage.getItem("placetext"));
-        $("#staff__text").text("selected");
-    }, 2000);
-});
+//         let spanhtml = "";
+//         let total_amt = 0;
+//         for(var i = 0; i < ser_dyn.length; i++) {
+//             let chunk = ser_dyn[i].split('-');
+//             total_amt = total_amt+parseInt(chunk[1]);
+//             spanhtml += "<span>"+chunk[2].replace("_", " ")+"<small>"+chunk[1]+"</small></span>"
+//             // $("#"+ser_dyn[i]).addClass('active-service-item')  
+//         }
+//         spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
+//         console.log(spanhtml);
+//         $("#summary").html(spanhtml);
+//         // $("#payment_amt").text("Pay "+total_amt);
+//         // $("#"+)
+//         // console.log(ser_dyn);
+//         $("#date__text").text(localStorage.getItem("datetext"));
+//         $("#time__text").text(localStorage.getItem("timetext"));
+//         $("#place__text").text(localStorage.getItem("placetext"));
+//         $("#staff__text").text("selected");
+//     }, 2000);
+// });
         </script>
     </body>
 </html>

@@ -62,7 +62,14 @@
                 </ul>
 
                 <div class="nav__login">
-                    <a class="nav__login__link" href="">Log in</a>
+                    <!-- <a class="nav__login__link" href="">Log in</a> -->
+                    <div class="dropdown">
+                        <a class="nav__login__link">Log in</a>
+                            <div class="dropdown-content">
+                                <a href="{{ url('/login') }}">Individual Login</a>
+                                <a href="{{ url('/owner/login') }}">Business Login</a>
+                            </div>
+                    </div>
                     <button class="nav__login__button">
                         <a href="../html/subscription.html">Subscribe Now</a>
                     </button>

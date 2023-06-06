@@ -1470,6 +1470,89 @@ class WebsiteController extends Controller
         return view('website.pages.pricing');
     }
 
+    public function silver(Request $request)
+    {
+        // dd('test');
+        $setting = AdminSetting::first(['currency_symbol']);
+
+        // Stripe
+        // Enter Your Stripe Secret
+        \Stripe\Stripe::setApiKey('sk_test_51N0q2GGe3Ltd3BwxsfaTpZb0NEyrPqBq69oYO1IV3Ve26njJyDBX1AmeGFpJdFhe7J5sGlwhv6MCGt5640fFF3Xy00lKXTOfHr');
+                        
+        $amount = 10;//$request->amount;
+        $amount *= 100;
+        $amount = (int) $amount;
+
+        $payment_intent = \Stripe\PaymentIntent::create([
+            'description' => 'Silver Package', //$request->description,
+            'amount' => $amount,
+            'currency' => 'AED',
+            // 'description' => 'Payment From Meetendo',
+            'payment_method_types' => ['card'],
+        ]);
+        $intent = $payment_intent->client_secret;
+
+        $coupons = $this->getCoupon();
+        return view('website.pages.silver', compact('setting','intent'));
+    }
+
+    public function gold(Request $request)
+    {
+        // dd('test');
+        $setting = AdminSetting::first(['currency_symbol']);
+
+        // Stripe
+        // Enter Your Stripe Secret
+        \Stripe\Stripe::setApiKey('sk_test_51N0q2GGe3Ltd3BwxsfaTpZb0NEyrPqBq69oYO1IV3Ve26njJyDBX1AmeGFpJdFhe7J5sGlwhv6MCGt5640fFF3Xy00lKXTOfHr');
+                        
+        $amount = 399;//$request->amount;
+        $amount *= 100;
+        $amount = (int) $amount;
+
+        $payment_intent = \Stripe\PaymentIntent::create([
+            'description' => 'Gold Package', //$request->description,
+            'amount' => $amount,
+            'currency' => 'AED',
+            // 'description' => 'Payment From Meetendo',
+            'payment_method_types' => ['card'],
+        ]);
+        $intent = $payment_intent->client_secret;
+
+        $coupons = $this->getCoupon();
+        return view('website.pages.gold', compact('setting','intent'));
+    }
+
+    public function plat(Request $request)
+    {
+        // dd('test');
+        $setting = AdminSetting::first(['currency_symbol']);
+
+        // Stripe
+        // Enter Your Stripe Secret
+        \Stripe\Stripe::setApiKey('sk_test_51N0q2GGe3Ltd3BwxsfaTpZb0NEyrPqBq69oYO1IV3Ve26njJyDBX1AmeGFpJdFhe7J5sGlwhv6MCGt5640fFF3Xy00lKXTOfHr');
+                        
+        $amount = 3600;//$request->amount;
+        $amount *= 100;
+        $amount = (int) $amount;
+
+        $payment_intent = \Stripe\PaymentIntent::create([
+            'description' => 'Platinum Package', //$request->description,
+            'amount' => $amount,
+            'currency' => 'AED',
+            // 'description' => 'Payment From Meetendo',
+            'payment_method_types' => ['card'],
+        ]);
+        $intent = $payment_intent->client_secret;
+
+        $coupons = $this->getCoupon();
+        return view('website.pages.plat', compact('setting','intent'));
+    }
+
+    public function aftersubscribepayment(Request $request){
+        // dd("test");
+        return redirect('/signupbusiness');
+    }
+
     public function support(Request $request)
     {
         // dd('test');
