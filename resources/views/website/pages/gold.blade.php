@@ -85,7 +85,7 @@
             
         </header>
         @php
-                                $stripe_key = 'pk_test_51N0q2GGe3Ltd3BwxNB9601Cd1GT09pUYny0aLW4mR6lR2fiRw2q6XMHVv9pCK07TfLewTjVcakHgdOd9LhbFZzaF00Kv6GfVMf';
+                                $stripe_key = 'pk_test_51NG07sFI5wQ7qLlMr5VzTtMQRRblHoV4mxkg0aRj7xXE8ME5100qt3HOoKOCQMvx2tS35164PgDqlO35CvBTQ6uc00VvGzgcri';
                             @endphp
 
 

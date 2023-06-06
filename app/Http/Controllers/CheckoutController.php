@@ -10,7 +10,7 @@ class CheckoutController extends Controller
     public function checkout()
     {   
         // Enter Your Stripe Secret
-        \Stripe\Stripe::setApiKey('sk_test_51N0q2GGe3Ltd3BwxsfaTpZb0NEyrPqBq69oYO1IV3Ve26njJyDBX1AmeGFpJdFhe7J5sGlwhv6MCGt5640fFF3Xy00lKXTOfHr');
+        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
         		
 		$amount = 150;
 		$amount *= 100;
