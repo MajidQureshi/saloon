@@ -365,7 +365,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_66_yes" name="q_66" type="checkbox" value="Monday"> 
+                                                <input class="form-check-input question__input" id="q_66_yes" name="q_66[]" type="checkbox" value="Monday"> 
                                                 <label class="form-check-label question__label" for="q_66_yes" style="">Monday</label>
                                             </div>
                                         </div>
@@ -373,7 +373,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_71_yes" name="q_66" type="checkbox" value="Tuesday"> 
+                                                <input class="form-check-input question__input" id="q_71_yes" name="q_66[]" type="checkbox" value="Tuesday"> 
                                                 <label class="form-check-label question__label" for="q_71_yes" style="">Tuesday</label>
                                             </div>
                                         </div>
@@ -381,7 +381,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_72_yes" name="q_66" type="checkbox" value="Wednesday"> 
+                                                <input class="form-check-input question__input" id="q_72_yes" name="q_66[]" type="checkbox" value="Wednesday"> 
                                                 <label class="form-check-label question__label" for="q_72_yes" style="">Wednesday</label>
                                             </div>
                                         </div>
@@ -389,7 +389,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_73_yes" name="q_66" type="checkbox" value="Thursday"> 
+                                                <input class="form-check-input question__input" id="q_73_yes" name="q_66[]" type="checkbox" value="Thursday"> 
                                                 <label class="form-check-label question__label" for="q_73_yes" style="">Thursday</label>
                                             </div>
                                         </div>
@@ -397,7 +397,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_74_yes" name="q_66" type="checkbox" value="Friday"> 
+                                                <input class="form-check-input question__input" id="q_74_yes" name="q_66[]" type="checkbox" value="Friday"> 
                                                 <label class="form-check-label question__label" for="q_74_yes" style="">Friday</label>
                                             </div>
                                         </div>
@@ -405,7 +405,7 @@
                                     <div class="col-lg-4" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_75_yes" name="q_66" type="checkbox" value="Saturday"> 
+                                                <input class="form-check-input question__input" id="q_75_yes" name="q_66[]" type="checkbox" value="Saturday"> 
                                                 <label class="form-check-label question__label" for="q_75_yes" style="">Saturday</label>
                                             </div>
                                         </div>
@@ -413,7 +413,7 @@
                                     <div class="col-lg-6" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_76_yes" name="q_66" type="checkbox" value="Sunday"> 
+                                                <input class="form-check-input question__input" id="q_76_yes" name="q_66[]" type="checkbox" value="Sunday"> 
                                                 <label class="form-check-label question__label" for="q_76_yes" style="">Sunday</label>
                                             </div>
                                         </div>
@@ -421,7 +421,7 @@
                                     <div class="col-lg-6" style="margin-top: 15px;">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <input class="form-check-input question__input" id="q_77_yes" name="q_66" type="checkbox" value="All Week" checked> 
+                                                <input class="form-check-input question__input" id="q_77_yes" name="q_66[]" type="checkbox" value="All Week" checked> 
                                                 <label class="form-check-label question__label" for="q_77_yes" style="">All Week</label>
                                             </div>
                                         </div>
@@ -600,32 +600,61 @@
             let company_working_days = $('input[name="q_66"]:checked').val();
             let opening_closing_times = $('input[name="q_88"]:checked').val();
 
+            var fd = new FormData();
+            var company_logo = $('#company_logo')[0].files;
+            var licence = $('#licence')[0].files;
+            var id_copy = $('#id_copy')[0].files;
+
+            fd.append('company_logo',company_logo[0]);
+            fd.append('licence',licence[0]);
+            fd.append('id_copy',id_copy[0]);
+            fd.append('_token','{{csrf_token()}}');
+            fd.append('name',full_name);
+            fd.append('phone',mobile_number);
+            fd.append('email',email);
+            fd.append('password',password);
+            fd.append('company_name',company_name);
+            fd.append('company_desc',company_desc);
+            fd.append('how_many_employees',how_many_employees);
+            fd.append('company_location',company_location);
+            fd.append('company_interest',company_interest);
+            fd.append('serve_your_customer',serve_your_customer);
+            fd.append('extra_charges_home_services',extra_charges_home_services);
+            fd.append('company_overview',company_overview);
+            fd.append('company_working_days',company_working_days);
+            fd.append('opening_closing_times',opening_closing_times);
+
             $.ajax({
                 url:'{{URL::to("/submitbusinessregister")}}',
                 type: "post",
-                data: { 
-                    name: full_name, 
-                    phone: mobile_number,
-                    _token: '{{csrf_token()}}',
-                    email: email,
-                    password: password,
-                    company_name: company_name,
-                    company_desc: company_desc,
-                    how_many_employees: how_many_employees,
-                    company_location: company_location,
-                    company_interest: company_interest,
-                    serve_your_customer: serve_your_customer,
-                    extra_charges_home_services: extra_charges_home_services,
-                    company_overview: company_overview,
-                    // company_working_days: company_working_days,
-                    opening_closing_times: opening_closing_times
-                 },
+                async:false,
+                data:fd,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                // data: { 
+                //     name: full_name, 
+                //     phone: mobile_number,
+                    // _token: '{{csrf_token()}}',
+                //     email: email,
+                //     password: password,
+                //     company_name: company_name,
+                //     company_desc: company_desc,
+                //     how_many_employees: how_many_employees,
+                //     company_location: company_location,
+                //     company_interest: company_interest,
+                //     serve_your_customer: serve_your_customer,
+                //     extra_charges_home_services: extra_charges_home_services,
+                //     company_overview: company_overview,
+                //     company_working_days: company_working_days,
+                //     opening_closing_times: opening_closing_times
+                //  },
                 success: function (res) {},
                 error: function (error) {},
             });
             setTimeout(() => {
                 window.location.href = "./owner/login";
-            }, 2500);
+            }, 4000);
             // $('#gif').show(); 
             // alert('go');
             // window.location.href = "https://test.smartcita.com/owner/login";

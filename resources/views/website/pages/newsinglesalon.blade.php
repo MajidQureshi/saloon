@@ -248,7 +248,7 @@
                     @foreach ($cat->services as $service)
                     @php $sname = str_replace(" ","_", $service->name); @endphp
                     <div class="salon__services__box ser" id="{{$service->service_id}}-{{$service->price}}-{{$sname}}">
-                    <img src="{{ $service->imagePath .'/'. $service->image }}" alt="{{$service->name}}">
+                    <img src="{{ asset('assests/single-salon/make-up.png') }}" alt="{{$service->name}}">
                         <div class="salon__services__description">
                             <h6>{{$service->name}}</h6>
                             @if ($salon->gender == "Both")

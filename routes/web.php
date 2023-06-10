@@ -43,6 +43,11 @@ Route::group([
     Route::get('/isexistuseremail', 'website\WebsiteController@isexistuseremail');    
     Route::post('/aftersubscribepayment', 'website\WebsiteController@aftersubscribepayment');
 
+    // Route::controller(StripePaymentController::class)->group(function(){
+        Route::get('stripe', 'StripePaymentController@stripe');
+        Route::post('stripe', 'StripePaymentController@stripepost')->name('stripepost');
+    // });
+
     // Payment Routes
     Route::get('checkout','CheckoutController@checkout');
     Route::post('checkout','CheckoutController@afterpayment')->name('checkout.credit-card');

@@ -118,53 +118,56 @@
 
 
                         <div class="pay__later">
-                            <img src="{{asset('assests/single-salon/cash.svg')}}" alt="cash"/>
+                            <img
+                                src="../assests/single-salon/cash.svg"
+                                alt="cash"
+                            />
                             <span> Pay When You Arrive</span>
                         </div>
-
-
-                    <form role="form" action="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingbooked' }}"  method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV" id="payment-form">
-                        @csrf
-    
                         <div class="booking__payment__credit">
                             <div class="booking__payment__credit__header">
-                                <img src="{{asset('assests/single-salon/credit.svg')}}" alt="cash">
-                                <span> Credit Card</span>
+                                <img
+                                    src="../assests/single-salon/credit.svg"
+                                    alt="cash"
+                                />
+                                <span> Stripe Card</span>
                             </div>
-                            <input type="hidden" name="amount" value="" id="payment_amount">
-                            <input type="hidden" name="payment_desc" value="{{ $payment_desc }}" id="payment_desc">
+                            @php
+                                $stripe_key = 'pk_test_51NG07sFI5wQ7qLlMr5VzTtMQRRblHoV4mxkg0aRj7xXE8ME5100qt3HOoKOCQMvx2tS35164PgDqlO35CvBTQ6uc00VvGzgcri';
+                            @endphp
 
-                            <div class="booking__payment__inputs">
-                                <div class="booking__payment__inputs__box">
-                                    <label class="payment__name__label"></label>
-                                    <input id="name__input" type="text" placeholder="Name" name="account_name">
-                                </div>
-
-                                <div class="booking__payment__inputs__box">
-                                    <label class="payment__card__label"></label>
-                                    <input id="card__input" type="text" placeholder="Card Number" maxlength="16" class="card-number" name="card_number" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57">
-                                </div>
-                                <div class="booking__payment__month__box">
-                                    <div class="booking__payment__inputs__box">
-                                        <label class="payment__month__label"></label>
-                                        <input id="month__input" type="text" placeholder="MM" maxlength="2" class="card-expiry-month" name="card_expiry_month" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57">
+                            <div class="card">
+                            <!-- <form action="{{route('checkout.credit-card')}}"  method="post" id="payment-form"> -->
+                            <!-- <form action="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingbooked' }}"  method="post" id="payment-form"> -->
+                            <form role="form" action="{{ route('stripe.post') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV">
+                                @csrf
+                                <div class="form-group">
+                                    <div class="card-header" style="margin-bottom:4rem">
+                                        <!-- Card info -->
+                                        <label for="card-element">
+                                            Enter your credit card information
+                                        </label>
                                     </div>
-                                    <div class="booking__payment__inputs__box">
-                                        <label class="payment__month__label"></label>
-                                        <input id="month__input" type="text" placeholder="YYYY" maxlength="4" class="card-expiry-year" name="card_expiry_year" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57">
-                                    </div>
-                                    <div class="booking__payment__inputs__box">
-                                        <label class="payment__cvc__label"></label>
-                                        <input id="CVC__input" type="text" placeholder="CVC" maxlength="3" class="card-cvc" name="card_cvc" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57">
+                                    <div class="card-body">
+                                        <div id="card-element">
+                                        <!-- A Stripe Element will be inserted here. -->
+                                        </div>
+                                        <!-- Used to display form errors. -->
+                                        <div id="card-errors" role="alert"></div>
+                                        <input type="hidden" name="plan" value="" />
                                     </div>
                                 </div>
-                                <button class="" type="submit" id="payment_button" style="background-color: hsl(123, 40%, 42%);border-radius: 2.4rem;padding-inline: 5rem;padding-block: 1.3rem;border: 0;color: #fff;cursor: pointer;font-weight: 400;margin-top: 2rem;">Pay</button>
-                            </div>
+                                <div class="card-footer">
+                                <button
+                                id="card-button"
+                                class="btn btn-dark"
+                                type="submit"
+                                data-secret="{{ $intent }}" style="margin-top:4rem;background-color: #2da159;border-radius: 2.4rem;padding-inline: 48%;padding-block: 1.3rem;border: 0;color: #fff;cursor: pointer;font-weight: 400;"> Pay </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-
-
-                        
+                            
+                        </div>
                         
                         <div class="booking__payment__links">
                             <button id="payment__button1">Back</button>
@@ -272,9 +275,73 @@
             START FOOTER AREA
         ================================= -->
 
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+ 
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+
+        var style = {
+            base: {
+                color: '#32325d',
+                lineHeight: '18px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+    
+        const stripe = Stripe('{{ $stripe_key }}', { locale: 'en' }); // Create a Stripe client.
+        const elements = stripe.elements(); // Create an instance of Elements.
+        const cardElement = elements.create('card', { style: style }); // Create an instance of the card Element.
+        const cardButton = document.getElementById('card-button');
+        const clientSecret = cardButton.dataset.secret;
+    
+        cardElement.mount('#card-element'); // Add an instance of the card Element into the `card-element` <div>.
+    
+        // Handle real-time validation errors from the card Element.
+        cardElement.addEventListener('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+    
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+    
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+        stripe.handleCardPayment(clientSecret, cardElement, {
+                payment_method_data: {
+                    //billing_details: { name: cardHolderName.value }
+                }
+            })
+            .then(function(result) {
+                console.log(result);
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    console.log(result);
+                    form.submit();
+                }
+            });
+        });
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script>    
 $( document ).ready(function() {
     setTimeout(() => {
@@ -291,9 +358,7 @@ $( document ).ready(function() {
         spanhtml += "<span>Total<small>"+total_amt+"</small></span>";
         console.log(spanhtml);
         $("#summary").html(spanhtml);
-        $("#payment_amount").val(total_amt);
-        $("#payment_button").text("Pay "+total_amt);
-        // $("#payment_desc").val();
+        // $("#payment_amt").text("Pay "+total_amt);
         // $("#"+)
         // console.log(ser_dyn);
         $("#date__text").text(localStorage.getItem("datetext"));

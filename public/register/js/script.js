@@ -152,12 +152,37 @@ const progress = (value) => {
         }
         if(current_step == 3){
             let company_location = $("#company_location").val();
+            let company_logo = $("#company_logo").val();
+            let licence = $("#licence").val();
+            let id_copy = $("#id_copy").val();
+            console.log(id_copy);
             let secondflag = true;
 
             $(".third_error_div").addClass("hide");
             $(".third_error_div").removeClass("show");
             $("#company_location").removeClass("red_border");
-            
+            $("#company_logo").removeClass("red_border");
+            $("#licence").removeClass("red_border");
+            $("#id_copy").removeClass("red_border");
+
+            if(company_logo == ""){
+                console.log("company_logo missing");
+                $("#company_logo").addClass("red_border");
+                secondflag = false;
+            }
+
+            if(licence == ""){
+                console.log("licence missing");
+                $("#licence").addClass("red_border");
+                secondflag = false;
+            }
+
+            if(id_copy == ""){
+                console.log("id_copy missing");
+                $("#id_copy").addClass("red_border");
+                secondflag = false;
+            }
+
             if(company_location == ""){
                 console.log("company_location missing");
                 $("#company_location").addClass("red_border");

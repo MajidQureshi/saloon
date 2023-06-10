@@ -154,7 +154,7 @@
             </div>
         </main>
 
-        <div class="item__numbers hidden">
+        <div class="item__numbers">
             <p>Service Selected</p>
             <button class="salon__services__booking_button__2">
                 <a href="{{ url('salon/' .$salon->salon_id .'/'. Str::slug($salon->name)) .'/bookingsteptwo' }}" id="gostep2">Continue</a>
@@ -254,9 +254,27 @@ $( document ).ready(function() {
         for(var i = 0; i < ser_dyn.length; i++) {
             $("#"+ser_dyn[i]).addClass('active-service-item')  
         }
+
+        $(".item__numbers > p").text(ser_dyn.length+" Service Selected");
         // $("#"+)
         // console.log(ser_dyn);
     }, 2000);
+
+    $(".salon__services__box").click(function(){
+        // active-service-item
+        // let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
+        // $(".item__numbers > p").text(ser_dyn.length+" SService Selected");
+        // for(var i = 0; i < ser_dyn.length; i++) {
+        //     $("#"+ser_dyn[i]).addClass('active-service-item')  
+        // }
+        setTimeout(function(){
+            let ser_dyn = JSON.parse(localStorage.getItem("service_storage"));
+            $(".item__numbers > p").text(ser_dyn.length+" Service Selected");
+            // alert('fgfg');
+        }, 1000);
+    })
+    
+    //         itemNumber.children[0].innerText = "Service Selected";
 });
         </script>
     </body>

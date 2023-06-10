@@ -124,7 +124,8 @@ class WebsiteController extends Controller
 
     public function submitbusinessregister(Request $request)
     {
-
+        // dd($request->hasFile('company_logo'));
+        // dd($request);
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -141,6 +142,119 @@ class WebsiteController extends Controller
         $user->extra_charges_home_services = $request->extra_charges_home_services;
         $user->company_overview = $request->company_overview;
         $user->save();
+
+        $salon = new Salon();
+        if($request->hasFile('company_logo'))
+        {
+            $image = $request->file('company_logo');
+            $name = 'salon_'.uniqid().'.'. $image->getClientOriginalExtension();
+            $destinationPath = public_path('/storage/images/salon logos');
+            $image->move($destinationPath, $name);
+            $salon->image = $name;
+            $salon->logo = $name;
+        }
+        if($request->hasFile('licence'))
+        {
+            $image = $request->file('licence');
+            $name = 'salon_'.uniqid().'.'. $image->getClientOriginalExtension();
+            $destinationPath = public_path('/storage/images/salon logos');
+            $image->move($destinationPath, $name);
+            $salon->license_image = $name;
+        }
+        if($request->hasFile('id_copy'))
+        {
+            $image = $request->file('id_copy');
+            $name = 'salon_'.uniqid().'.'. $image->getClientOriginalExtension();
+            $destinationPath = public_path('/storage/images/salon logos');
+            $image->move($destinationPath, $name);
+            $salon->id_card = $name;
+        }
+        // if($request->hasFile('logo'))
+        // {
+        //     $image = $request->file('logo');
+        //     $name = 'salonLogo_'.uniqid().'.'. $image->getClientOriginalExtension();
+        //     $destinationPath = public_path('/storage/images/salon logos');
+        //     $image->move($destinationPath, $name);
+        //     $salon->logo = $name;
+        // }
+
+        $salon_timer = explode(" - ",$request->opening_closing_times);
+
+        $salon->sun = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        $salon->mon = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        $salon->tue = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        $salon->wed = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        $salon->thu = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        $salon->fri = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        $salon->sat = '{"open":"'.$salon_timer[0].'","close":"'.$salon_timer[1].'"}';
+        
+        $salon->name = $request->company_name;
+        $salon->desc = $request->company_desc;
+        $salon->gender = $request->company_interest;
+        $salon->give_service = "Salon";//$request->give_service;
+        $salon->home_charges = $request->extra_charges_home_services;
+        if($request->give_service == "Salon") {
+            $salon->home_charges = '0';
+        }
+
+        $salon->address = $request->company_location;
+        $salon->zipcode = $request->zipcode ?? '';
+        $salon->city = $request->company_location;//ucfirst($request->city);
+        $salon->state = $request->company_location;//ucfirst($request->state) ?? '';
+        $salon->country = $request->company_location;//ucfirst($request->country);
+        // $salon->website = $request->website;
+        $salon->phone = $request->phone;
+
+       
+        // if($request->sunopen == null || $request->sunclose == null){
+        //     $salon->sun = json_encode(array('open' => $request->sunopen,'close' => $request->sunclose));
+        // } else {
+        //     $salon->sun = json_encode(array('open' => Carbon::parse($request->sunopen)->format('H:i'),'close' => Carbon::parse($request->sunclose)->format('H:i')));
+        // }
+        
+        // if($request->monopen == null || $request->monclose == null){
+        //     $salon->mon = json_encode(array('open' => $request->monopen,'close' => $request->monclose));
+        // } else {
+        //     $salon->mon = json_encode(array('open' => Carbon::parse($request->monopen)->format('H:i'),'close' => Carbon::parse($request->monclose)->format('H:i')));
+        // }
+  
+        // if($request->tueopen == null || $request->tueclose == null){
+        //     $salon->tue = json_encode(array('open' => $request->tueopen,'close' => $request->tueclose));
+        // } else {
+        //     $salon->tue = json_encode(array('open' => Carbon::parse($request->tueopen)->format('H:i'),'close' => Carbon::parse($request->tueclose)->format('H:i')));
+        // }
+
+        // if($request->wedopen == null || $request->wedclose == null){
+        //     $salon->wed = json_encode(array('open' => $request->wedopen,'close' => $request->wedclose));
+        // } else {
+        //     $salon->wed = json_encode(array('open' => Carbon::parse($request->wedopen)->format('H:i'),'close' => Carbon::parse($request->wedclose)->format('H:i')));
+        // }
+
+        // if($request->thuopen == null || $request->thuclose == null){
+        //     $salon->thu = json_encode(array('open' => $request->thuopen,'close' => $request->thuclose));
+        // } else {
+        //     $salon->thu = json_encode(array('open' => Carbon::parse($request->thuopen)->format('H:i'),'close' => Carbon::parse($request->thuclose)->format('H:i')));
+        // }
+
+        // if($request->friopen == null || $request->friclose == null){
+        //     $salon->fri = json_encode(array('open' => $request->friopen,'close' => $request->friclose));
+        // } else {
+        //     $salon->fri = json_encode(array('open' => Carbon::parse($request->friopen)->format('H:i'),'close' => Carbon::parse($request->friclose)->format('H:i')));
+        // }
+
+        // if($request->satopen == null || $request->satclose == null){
+        //     $salon->sat = json_encode(array('open' => $request->satopen,'close' => $request->satclose));
+        // } else {
+        //     $salon->sat = json_encode(array('open' => Carbon::parse($request->satopen)->format('H:i'),'close' => Carbon::parse($request->satclose)->format('H:i')));
+        // }
+
+        $salon->longitude = 'null';// $request->long;
+        $salon->latitude = 'null'; //$request->lat;
+        $salon->owner_id = $user->id;
+        $salon->save();
+
+
+
         return true;
         // return response()->json(['success' => true,'data' => $category, 'msg' => 'category create'], 200);
                 
@@ -786,20 +900,20 @@ class WebsiteController extends Controller
         // Stripe
 
         // Enter Your Stripe Secret
-        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
+        // \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
                         
-        $amount = $request->amount;
-        $amount *= 100;
-        $amount = (int) $amount;
-
-        $payment_intent = \Stripe\PaymentIntent::create([
-            'description' => $request->description,
-            'amount' => $amount,
-            'currency' => 'USD',
-            // 'description' => 'Payment From Meetendo',
-            'payment_method_types' => ['card'],
-        ]);
-        $intent = $payment_intent->client_secret;
+        // $amount = $request->amount;
+        // $amount *= 100;
+        // $amount = (int) $amount;
+        $payment_desc = $request->description;
+        // $payment_intent = \Stripe\PaymentIntent::create([
+        //     'description' => $request->description,
+        //     'amount' => $amount,
+        //     'currency' => 'USD',
+        //     // 'description' => 'Payment From Meetendo',
+        //     'payment_method_types' => ['card'],
+        // ]);
+        // $intent = $payment_intent->client_secret;
         // dd($intent);
         // return view('checkout.credit-card',compact('intent'));
 
@@ -807,12 +921,40 @@ class WebsiteController extends Controller
         //////////////////
 
         $coupons = $this->getCoupon();
-        return view('website.pages.newbookingPageFive', compact('intent', 'salon', 'setting', 'today', 'emps', 'addresses', 'coupons'));
+        return view('website.pages.newbookingPageFive', compact('payment_desc', 'salon', 'setting', 'today', 'emps', 'addresses', 'coupons'));
     }
 
     public function bookingbooked(Request $request, $id, $salonname)
     {
+        // \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
+        // $customer = \Stripe\Customer::create(array(
+        //     "address" => [
+        //             "line1" => "Virani Chowk",
+        //             "postal_code" => "360001",
+        //             "city" => "Rajkot",
+        //             "state" => "GJ",
+        //             "country" => "IN",
+        //         ],
+        //     "email" => "demo@gmail.com",
+        //     "name" => $request->account_name,
+        //     // "source" => $request->stripeToken
+        //  ));
+        // dd($customer->name);
         // dd($request);
+
+
+
+
+        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
+        // Stripe\Stripe::setApiKey("sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV");
+    
+        \Stripe\Charge::create ([
+                "amount" => $request->amount * 100,
+                "currency" => "usd",
+                "source" => $request->stripeToken,
+                "description" => "Payer Name: ".$request->account_name.",".$request->payment_desc
+        ]);
+
         $salon = Salon::find($id);
         $day = strtolower(Carbon::now()->format('l'));
         $start_time = new Carbon($salon->$day['open']);
@@ -1475,25 +1617,8 @@ class WebsiteController extends Controller
         // dd('test');
         $setting = AdminSetting::first(['currency_symbol']);
 
-        // Stripe
-        // Enter Your Stripe Secret
-        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
-                        
-        $amount = 10;//$request->amount;
-        $amount *= 100;
-        $amount = (int) $amount;
-
-        $payment_intent = \Stripe\PaymentIntent::create([
-            'description' => 'Silver Package', //$request->description,
-            'amount' => $amount,
-            'currency' => 'AED',
-            // 'description' => 'Payment From Meetendo',
-            'payment_method_types' => ['card'],
-        ]);
-        $intent = $payment_intent->client_secret;
-
         $coupons = $this->getCoupon();
-        return view('website.pages.silver', compact('setting','intent'));
+        return view('website.pages.silver', compact('setting'));
     }
 
     public function gold(Request $request)
@@ -1501,25 +1626,8 @@ class WebsiteController extends Controller
         // dd('test');
         $setting = AdminSetting::first(['currency_symbol']);
 
-        // Stripe
-        // Enter Your Stripe Secret
-        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
-                        
-        $amount = 399;//$request->amount;
-        $amount *= 100;
-        $amount = (int) $amount;
-
-        $payment_intent = \Stripe\PaymentIntent::create([
-            'description' => 'Gold Package', //$request->description,
-            'amount' => $amount,
-            'currency' => 'AED',
-            // 'description' => 'Payment From Meetendo',
-            'payment_method_types' => ['card'],
-        ]);
-        $intent = $payment_intent->client_secret;
-
         $coupons = $this->getCoupon();
-        return view('website.pages.gold', compact('setting','intent'));
+        return view('website.pages.gold', compact('setting'));
     }
 
     public function plat(Request $request)
@@ -1527,29 +1635,23 @@ class WebsiteController extends Controller
         // dd('test');
         $setting = AdminSetting::first(['currency_symbol']);
 
-        // Stripe
-        // Enter Your Stripe Secret
-        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
-                        
-        $amount = 3600;//$request->amount;
-        $amount *= 100;
-        $amount = (int) $amount;
-
-        $payment_intent = \Stripe\PaymentIntent::create([
-            'description' => 'Platinum Package', //$request->description,
-            'amount' => $amount,
-            'currency' => 'AED',
-            // 'description' => 'Payment From Meetendo',
-            'payment_method_types' => ['card'],
-        ]);
-        $intent = $payment_intent->client_secret;
-
         $coupons = $this->getCoupon();
-        return view('website.pages.plat', compact('setting','intent'));
+        return view('website.pages.plat', compact('setting'));
     }
 
     public function aftersubscribepayment(Request $request){
-        // dd("test");
+        // dd($request);
+
+        \Stripe\Stripe::setApiKey('sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV');
+        // Stripe\Stripe::setApiKey("sk_test_51NG07sFI5wQ7qLlM3s0knlhvA3mDhAM9Obxq3CtqqTVpNkNggFbJ1w0F5gK0dFztvsTQ465HdjKY0D4gpANSMCrz00NXtJvnuV");
+    
+        \Stripe\Charge::create ([
+                "amount" => $request->amount * 100,
+                "currency" => "AED",
+                "source" => $request->stripeToken,
+                "description" => "Payer Name: ".$request->account_name.", Package: ".$request->payment_desc
+        ]);
+
         return redirect('/signupbusiness');
     }
 

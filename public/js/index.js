@@ -143,9 +143,9 @@ if (salonServiceBox)
                 // service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
                 // service_storage.push(e.target.id);
                 // localStorage.setItem("service_storage", JSON.stringify(service_storage));
-                itemNumber.children[0].innerText = (activeItems.length + 1)+" Service Selected";
+                // itemNumber.children[0].innerText = (activeItems.length + 1)+" Service Selected";
             }else{
-                itemNumber.children[0].innerText = (activeItems.length - 1)+" Service Selected";
+                // itemNumber.children[0].innerText = (activeItems.length - 1)+" Service Selected";
                 // service_storage = JSON.parse(localStorage.getItem("service_storage") || "[]");
                 // let filtered = service_storage.filter(function(value, index, arr){ 
                     // return value != e.target.id;
@@ -174,7 +174,10 @@ if (salonServiceBox)
                 itemNumberBtn.classList.add(".active__booking__button");
             } else {
                 itemNumberBtn.classList.remove(".active__booking__button");
-            }   
+            }  
+            
+
+
         });
     });
 

@@ -21,6 +21,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        
         $salon = Salon::where('owner_id', Auth()->user()->id)->first();
         $services = Service::where([['salon_id', $salon->salon_id],['isdelete',0]])->get();
         $employees = Employee::where([['salon_id', $salon->salon_id],['isdelete',0]])->get();
@@ -277,6 +278,9 @@ class DashboardController extends Controller
             'password' => $request->password,
             'role' => 2,
         );
+        // dd("index");
+        // return redirect('owner/dashboard');
+
         if (Auth::attempt($userdata))
         {
             $salon = Salon::where('owner_id', Auth::user()->id)->first();
