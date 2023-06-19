@@ -40,9 +40,11 @@
                 decision to increase your profit.
             </p>
 
-            <button class="cards__section__button">
-                Join Meetendo Now
-            </button>
+            <a href="{{ url('/pricing') }}">
+                <button class="cards__section__button">
+                    Join Meetendo Now
+                </button>
+            </a>
         </div>
         <img class="cards__section__img" src="{{asset('html-assests/shared/Save-time.png')}}" alt=" Save-time" />
 
@@ -75,7 +77,7 @@
                 </p>
             </div>
         </div>
-        <a href=""><button class=" cards__section__big__button">
+        <a href="{{ url('/pricing') }}"><button class=" cards__section__big__button">
                 Join Meetendo Now
                 <span></span></button></a>
     </div>

@@ -32,6 +32,7 @@
     <!-- FONT -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
@@ -81,7 +82,7 @@
                                 </div>
                                 <hr style="margin-top: -15px;">
                                 <div class="first_error_div hide">
-                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                    Please fill all the mandatory fields in proper format and agree with Terms of Services
                                 </div>    
                                 <div class="user_exist_error_div hide">
                                     User already exist
@@ -99,8 +100,8 @@
                                     <div class="col-lg-6">
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
-                                                <label class="form-label">Mobile Number</label> 
-                                                <input class="form-control" id="mobile_number" name="mobile_number" type="tel" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57">
+                                                <label class="form-label">Mobile Number<span style="color: red;font-size: 10px;"> (Start with 05)</span></label> 
+                                                <input class="form-control" id="mobile_number" maxlength="10" name="mobile_number" type="tel" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57" placeholder="0512341234" onkeyup="">
                                             </div>
                                         </div>
                                         
@@ -109,7 +110,7 @@
                                         <div class="form-check ps-0 q-box">
                                             <div class="q-box__question">
                                                 <label class="form-label">Email</label> 
-                                                <input class="form-control" id="email" name="email" type="email">
+                                                <input class="form-control" id="email" name="email" type="email" placeholder="myemail@email.com">
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +138,7 @@
                                 <h4>Tell us about your company</h4>
                                 <p>Thousands Company like yours are manage their project and team in easy way</p>
                                 <div class="second_error_div hide">
-                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                    Please fill all the mandatory fields and agree with Terms of Services
                                 </div> 
                                 <div class="row">
                                     <div class="col-lg-12" style="margin-top: 15px;">
@@ -207,7 +208,7 @@
                                 <h4>Complete your company profile</h4>
                                 <p>Thousands Company like yours are manage their project and team in easy way</p>
                                 <div class="third_error_div hide">
-                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                    Please fill all the mandatory fields and agree with Terms of Services
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6" style="margin-top: 15px;">
@@ -252,7 +253,7 @@
                             <div class="step">
                                 <h4>What's your company interest?</h4>
                                 <div class="fourth_error_div hide">
-                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                    Please fill all the mandatory fields and agree with Terms of Services
                                 </div>
                                 <div class="row"> 
                                     <div class="col-lg-12" style="margin-top: 15px;">
@@ -359,7 +360,7 @@
                                 <h4>What's your company working days</h4>
                                 <p>We want to know What is your working Days</p>
                                 <div class="fifth_error_div hide">
-                                    Please fill all the mandatory fields and checked agree with Terms of Services
+                                    Please fill all the mandatory fields and agree with Terms of Services
                                 </div>
                                 <div class="row"> 
                                     <div class="col-lg-4" style="margin-top: 15px;">
@@ -531,6 +532,14 @@
         <div class="preloader-section section-left"></div>
         <div class="preloader-section section-right"></div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<script>
+    // $("#mobile_number").intlTelInput();
+  var input = document.querySelector("#mobile_number");
+  window.intlTelInput(input, {
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+  });
+</script>
     <script src="{{ asset('register/js/script.js') }}">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
@@ -544,7 +553,7 @@
 <script src="" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-
+        // $("#preloader-wrapper").attr("style", "display:block !important;");
         // $("#next-btn").click(function(e){
         //     // alert("nnnn");
         //     let full_name = $("#full_name").val();

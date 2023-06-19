@@ -38,6 +38,8 @@ const progress = (value) => {
             let user_exist = 0;
             let firstflag = true;
 
+            // console.log("mobile_number"+mobile_number);
+            // console.log(mobile_number.slice(0, 2) == "05");
             console.log(agree);
             $(".first_error_div").addClass("hide");
             $(".first_error_div").removeClass("show");
@@ -45,7 +47,7 @@ const progress = (value) => {
             $("#mobile_number").removeClass("red_border");
             $("#email").removeClass("red_border");
             $("#password").removeClass("red_border");
-           
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
             if(full_name == ""){
                 console.log("firstname missing");
@@ -57,8 +59,20 @@ const progress = (value) => {
                 $("#mobile_number").addClass("red_border");
                 firstflag = false;
             }
+            if((mobile_number.slice(0, 2) == "05") == false)
+            {
+                console.log("invalid mobile");
+                $("#mobile_number").addClass("red_border");
+                firstflag = false;
+            }
             if(email == ""){
                 console.log("email missing");
+                $("#email").addClass("red_border");
+                firstflag = false;
+            }
+            if(!email.match(mailformat))
+            {
+                console.log("invalid email");
                 $("#email").addClass("red_border");
                 firstflag = false;
             }
