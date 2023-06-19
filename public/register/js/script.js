@@ -127,6 +127,7 @@ const progress = (value) => {
             $("#short_heading").text('Dazboard');
             $("#main_heading").text('Manage Your Project and Team in an easy way');
             $("#main_pic").attr("src", "register/img/step"+(current_step+1)+".webp");
+            progress((100 / stepCount) * current_step);
         }
         if(current_step == 2){
             let company_name = $("#company_name").val();
@@ -163,6 +164,7 @@ const progress = (value) => {
             $("#short_heading").text('Dazboard');
             $("#main_heading").text('Manage Your Clients in an easy way');
             $("#main_pic").attr("src", "register/img/step2.webp");
+            progress((100 / stepCount) * current_step);
         }
         if(current_step == 3){
             let company_location = $("#company_location").val();
@@ -213,6 +215,7 @@ const progress = (value) => {
             $("#short_heading").text('');
             $("#main_heading").text('Serve Your Customer either at home or in your location');
             $("#main_pic").attr("src", "register/img/step2.webp");
+            progress((100 / stepCount) * current_step);
         }
         if(current_step == 4){
             let company_interest = $('input[name="q_44"]:checked').val();
@@ -243,6 +246,7 @@ const progress = (value) => {
             $("#short_heading").text('Dazboard');
             $("#main_heading").text('Manage your Working schedule');
             $("#main_pic").attr("src", "register/img/step"+(current_step+1)+".webp");
+            progress((100 / stepCount) * current_step);
         }
         if(current_step == 5){
             let company_working_days = $('input[name="q_66"]:checked').val();
@@ -267,6 +271,7 @@ const progress = (value) => {
             $("#main_pic").attr("src", "register/img/step2.webp");
             $("#submit-btn").attr('style', 'display:none !important');
             $("#prev-btn").attr('style', 'display:none !important');
+            progress((100 / stepCount) * current_step);
         }
 
 
