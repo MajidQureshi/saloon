@@ -124,7 +124,7 @@ button#submit-btn {
     height: 50px;
     background: #5541D7;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 15px;
     overflow: hidden;
     z-index: 1;
     cursor: pointer;
@@ -371,6 +371,16 @@ input[type="radio"]:hover {
 }
 
 .third_error_div{
+    font-size: 12px !important;
+    color: red  !important;
+    text-align: center  !important;
+    padding-bottom: 1rem  !important;
+    background-color: antiquewhite  !important;
+    margin-bottom: 15px  !important;
+    padding-top: 1rem  !important;
+}
+
+.fourth_error_div{
     font-size: 12px !important;
     color: red  !important;
     text-align: center  !important;

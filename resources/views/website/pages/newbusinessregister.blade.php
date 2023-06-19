@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <!-- <button id="google-btn" type="button" style="width: 300px;margin-top:1px !important;">Signup with Google</button>  -->
-                                        <img src="{{ asset('register/img/signin_google.png') }}" style="height: 85%;cursor: pointer;width: 100%;border: 2px solid #706f6f;border-radius: 7px;border: none;margin-top:-20px">
+                                        <img src="{{ asset('register/img/signin_google.png') }}" style="height: 85%;cursor: pointer;width: 100%;border: 2px solid #706f6f;border-radius: 7px;border: none;margin-top:-30px">
                                     </div>
                                     <!-- <div class="col-lg-4">                                        
                                         <img src="./img/refresh.webp" style="height: 50px;cursor: pointer;">
@@ -80,7 +80,7 @@
                                         <img src="./img/refresh.webp" style="height: 50px;cursor: pointer;">
                                     </div> -->
                                 </div>
-                                <hr style="margin-top: -15px;">
+                                <hr style="margin-top: -55px;">
                                 <div class="first_error_div hide">
                                     Please fill all the mandatory fields in proper format and agree with Terms of Services
                                 </div>    

@@ -124,7 +124,7 @@ const progress = (value) => {
                 return false;
             }
 
-            $("#short_heading").text('Dazboard');
+            $("#short_heading").text('Meetendo Business Registration Process');
             $("#main_heading").text('Manage Your Project and Team in an easy way');
             $("#main_pic").attr("src", "register/img/step"+(current_step+1)+".webp");
             progress((100 / stepCount) * current_step);
@@ -161,7 +161,7 @@ const progress = (value) => {
 
 
 
-            $("#short_heading").text('Dazboard');
+            $("#short_heading").text('Meetendo Business Registration Process');
             $("#main_heading").text('Manage Your Clients in an easy way');
             $("#main_pic").attr("src", "register/img/step2.webp");
             progress((100 / stepCount) * current_step);
@@ -212,7 +212,7 @@ const progress = (value) => {
                 return false;
             }
 
-            $("#short_heading").text('');
+            $("#short_heading").text('Meetendo Business Registration Process');
             $("#main_heading").text('Serve Your Customer either at home or in your location');
             $("#main_pic").attr("src", "register/img/step2.webp");
             progress((100 / stepCount) * current_step);
@@ -243,7 +243,7 @@ const progress = (value) => {
             }
 
 
-            $("#short_heading").text('Dazboard');
+            $("#short_heading").text('Meetendo Business Registration Process');
             $("#main_heading").text('Manage your Working schedule');
             $("#main_pic").attr("src", "register/img/step"+(current_step+1)+".webp");
             progress((100 / stepCount) * current_step);
@@ -266,7 +266,7 @@ const progress = (value) => {
             //     return false;
             // }
 
-            $("#short_heading").text('Dazboard');
+            $("#short_heading").text('Meetendo Business Registration Process');
             $("#main_heading").text('Thats it let us start our journey');
             $("#main_pic").attr("src", "register/img/step2.webp");
             $("#submit-btn").attr('style', 'display:none !important');
@@ -347,27 +347,27 @@ const progress = (value) => {
       }
 
       if(current_step == 1){
-        $("#short_heading").text('Dazboard');
+        $("#short_heading").text('Meetendo Business Registration Process');
         $("#main_heading").text('Manage Your Project and Team in an easy way');
         $("#main_pic").attr("src", "./register/img/step"+(current_step+1)+".webp");
     }
     if(current_step == 2){
-        $("#short_heading").text('Dazboard');
+        $("#short_heading").text('Meetendo Business Registration Process');
         $("#main_heading").text('Manage Your Clients in an easy way');
         $("#main_pic").attr("src", "./register/img/step2.webp");
     }
     if(current_step == 3){
-        $("#short_heading").text('Dazboard');
+        $("#short_heading").text('Meetendo Business Registration Process');
         $("#main_heading").text('Serve Your Customer either at home or in your location');
         $("#main_pic").attr("src", "./register/img/step2.webp");
     }
     if(current_step == 4){
-        $("#short_heading").text('Dazboard');
+        $("#short_heading").text('Meetendo Business Registration Process');
         $("#main_heading").text('Manage your Working schedule');
         $("#main_pic").attr("src", "./register/img/step"+(current_step+1)+".webp");
     }
     if(current_step == 5){
-        $("#short_heading").text('Dazboard');
+        $("#short_heading").text('Meetendo Business Registration Process');
         $("#main_heading").text('Thats it let us start our journey');
         $("#main_pic").attr("src", "./img/step"+(current_step+1)+".webp");
     }
